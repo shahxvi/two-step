@@ -8,10 +8,11 @@
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" href="images/two_step.jpeg">
 
+
     <!-- Link to external CSS stylesheet (optional) -->
     <!-- <link rel="stylesheet" href="style.css"> -->
 </head>
-<body style="background-color: white;">
+<body>
     <header style="background-color: #a5998d;">
         <img src="images/two_step.jpeg" alt="2 Step Sneakers" class="center-image">
         <style>
@@ -26,12 +27,46 @@
     </header>
 
     <br>
+    <header style=" background-color: #d8cec4;height: 650px; border-radius: 25px;">
+    <div style="display: block; max-width: 1250px; margin: 10px auto">
+        <img src="images/homepage.png" style="
+            width: 100%;
+            aspect-ratio: 12 / 5;
+            object-fit: cover;
+            overflow: hidden;
+            border-radius: 25px;
+            padding: 20px;
+            justify-content: space-between;
+            display: flex;">
+    </div>
 
-    <!--Shop Now-->  
-    <a href="login.html" style="text-decoration: none; color: white;">
-        <button style="font-size:25px; background-color: #a5998d;">Shop Now</button>
-    </a>
+    <!--Buttons-->  
+    <style>
+        .button.row {
+            display: flex;
+            justify-content: space-between;
+            max-width: 3000px;   
+            margin: 200px;            
+        }
 
+        .button { 
+            padding: 12px 32px;
+            font-size: 25px;
+            background-color: #a5998d;
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            font-size: 25px;
+            margin-left: 300px;
+            background-color: #7d7167;
+        }    
+    </style>
+    
+    <div class="button-row">
+        <a href="" class="button">Deals</a>
+        <a href="login.html" class="button">Shop Now</a>
+    </div>
+</header>
     <!-- Link to external JavaScript file (optional) -->
     <script src="script.js"></script>
 </body>
