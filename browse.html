@@ -7,27 +7,36 @@
     <link rel="stylesheet" href="style.css">
 
     </head>
-    <body style=""background-color: white;"">
+    <body style= "background-color: white;">
 
-   <!-- Header / Navigation -->
-    <header style="text-align: center; padding: 20px; background-color: #a5998d;">
+   <!-- Header / Navigation --> 
+    <style> 
+    header {text-align: center; padding: 20px; background-color: #a5998d;}
+        .center-image {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%; /* Prevents the image from overflowing on smaller screens */
+            height: 150px;
+        }
+
+        nav a {
+            font-family: 'Lucida Sans';
+            font-size: 18px;
+            color: rgb(3, 3, 3);
+            font-weight: bold;
+        }
+    </style>
+    </header>
+
+        <header>
+        <img src="images/two_step.jpeg" alt="2 Step Sneakers" class="center-image">
         <h1>2 Step Sneakers</h1>
         <nav>
             <a href="index.html">Home</a> | 
             <a href="browse.html">Browse</a> | 
             <a href="login.html">Logout</a>
-        </nav>
-
-        <img src="images/two_step.jpeg" alt="2 Step Sneakers" class="center-image">
-        <style>
-        .center-image {
-            display: block;
-            margin-left: 0px;
-            margin-right: auto;
-            max-width: 100%; /* Prevents the image from overflowing on smaller screens */
-            height: 150px;
-        }
-        </style>
+        </nav></style> 
+    
     </header>
 
     <hr>
@@ -60,7 +69,8 @@
 
             <!-- Kasut 3 -->
             <div style="background: white; padding: 10px; border-radius: 10px; width: 200px; text-align: center; box-shadow: 0px 2px 5px rgba(0,0,0,0.1); display: flex; flex-direction: column;">
-                <img src="images/red_velvet.png" ; alt="Red Velvet" style="width: 100%; border-radius: 10px;">
+                <img src="images/red_velvet.png" ; alt="Red Velvet" style="width: 200px; border-radius: 20px; object-fit: cover;">
+                <p></p>
                 <h3>Red Velvet</h3>
                 <p>Maroon retro</p>
                 <p><strong>RM480</strong></p>
@@ -96,7 +106,7 @@
 
             <!-- Kasut 7 -->
             <div style="background: white; padding: 10px; border-radius: 10px; width: 200px; text-align: center; box-shadow: 0px 2px 5px rgba(0,0,0,0.1); display: flex; flex-direction: column;">
-                <img src="images/blackpink_ballerina.png" ; alt="BlackPink Ballerina" style="width: 100%; border-radius: 10px;">   
+                <img src="images/blackpink_ballerina.png" ; alt="BlackPink Ballerina" style="width: 200px; border-radius: 10px;">   
                 <h3>BlackPink Ballerina</h3>
                 <p>Easy Walking Shoes</p>
                 <p><strong>M450</strong></p>
