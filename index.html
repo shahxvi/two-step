@@ -20,30 +20,71 @@
             display: block;
             margin-left: 0px;
             margin-right: auto;
-            max-width: 100%; /* Prevents the image from overflowing on smaller screens */
+            max-width: 100%;
             height: 150px;
         }
+        .slider-container {
+            position: relative; 
+            max-width: 1000px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+            background: #fff;
+        }
+        .slider-container img {
+            width: 1000px;
+            height: 800px;
+            object-fit: fill;
+            display: block;
+        }
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3); 
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: black;
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 10;
+        }
+        .btn-prev {
+            left: 15px;
+        }
+
+        .btn-next {
+            right: 15px;
+        }
+        .slider-btn:hover {
+            background-color: white;
+            color: #111;
+        }
+
         </style>
         
     </header>
 
     <br>
-    <header style=" background-color: #d8cec4;height: 650px; border-radius: 25px;">
-    <div style="display: block; max-width: 1250px; margin: 10px auto">
-        <img src="images/homepage.png" style="
-            width: 100%;
-            aspect-ratio: 12 / 5;
-            object-fit: cover;
-            overflow: hidden;
-            border-radius: 25px;
-            padding: 20px;
-            justify-content: space-between;
-            display: flex;">
+    <!--Buttons--> 
+
+    <!-- Bahagian Slider -->
+    <div class="slider-container">
+        <button class="slider-btn btn-prev"><</button>  
+        <img src="images/homepage.png" alt="Sneaker Image">
+        <button class="slider-btn btn-next">></button>
     </div>
 
-    <!--Buttons--> 
     <div style="display: flex; gap: 1150px; justify-content: center; "> 
-        <a href="sign_up.html" style="font-size: 20px; background-color: #807166; color: white; padding: 20px 40px; border-radius: 12px; text-decoration: none;">Shop Now</a>
+        <a href="sign_up.html" style="margin-top: 20px; font-size: 20px; background-color: #807166; color: white; padding: 20px 40px; border-radius: 12px; text-decoration: none;">Shop Now</a>
     </div> 
 
     </header>
