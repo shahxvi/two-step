@@ -36,5 +36,3 @@ if (prevBtn) {
         updateImage();
     });
 }
-
-
