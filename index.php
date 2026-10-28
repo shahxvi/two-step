@@ -1,12 +1,15 @@
 <?php
-echo "<h1>Welcome to My Local Project!</h1>";
+$servername = "localhost";
+$username = "root";
+$password = "482377";
+$dbname = "TWO_STEP";
 
-// Test MySQL connection
-$conn = new mysqli("localhost", "root", "482377");
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 
-if ($conn->connect_error) {
-    echo "<p style='color:red;'>Database Connection Failed: " . $conn->connect_error . "</p>";
-} else {
-    echo "<p style='color:green;'>Successfully connected to MySQL database!</p>";
+// Check connection
+if (!$conn) {
+  die("Connection failed: " . mysqli_connect_error());
 }
+echo "Connected successfully";
 ?>
