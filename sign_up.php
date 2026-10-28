@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = "Username already exists. Please choose a different username.";
     } else {
         $stmt = $conn->prepare("INSERT INTO USER(username, password) VALUES (?, ?)");
-        $stmt->bind_param("ss", $username);
+        $stmt->bind_param("ss", $username, $password);
 
         if ($stmt->execute()) {
             header("Location: login.php?success=registered");

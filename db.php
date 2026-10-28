@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "482377";
+$password = "";
 $dbname = "TWO_STEP";
 
 // Create connection

@@ -5,18 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sign Up</title>
 </head>
-<body>
-  <h2>Sign Up</h2>
+
+<body style="display: flex;
+            justify-content: center;
+            align-items: center; 
+            padding: 60px 20px;">
+        <div style="background-color: #d8cec4;
+                    width: 100%;
+                    max-width: 750px;
+                    padding: 50px 40px; 
+                    border-radius: 12px; 
+                    box-shadow: 0px 4px 10px rgba(0,0,0,0.05); 
+                    text-align: center;">
+            <!-- Title -->
+            <h1 style= "font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                        font-size: 36px;
+                        font-weight: normal; 
+                        margin-top: 0; 
+                        margin-bottom: 40px;"><strong>Sign Up</strong>
+            </h1>
 
   <form action="sign_up.php" method="POST">
-    <label for="username">Username:</label><br>
+    <label for="username" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"><strong>Username:</strong></label><br>
     <input type="text" id="username" name="username" required><br><br>
 
-    <label for="password">Password:</label><br>
+    <label for="password" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"><strong>Password:</strong></label><br>
     <input type="password" id="password" name="password" required minlength="6"><br><br>
 
-    <button>
-    <a href="browse.html" type="submit">Sign Up</a></button>
+    <button type="submit">Sign Up</button>
   </form>
+        </div>
 </body>
 </html>
