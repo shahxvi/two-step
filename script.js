@@ -2,7 +2,7 @@
 const sliderImages = [
     "images/homepage.png",
     "images/Nike_poster.png",
-    "images/sambaaa.png"
+    "images/converse.png"
 ];
 
 let currentIndex = 0;

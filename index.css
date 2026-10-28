@@ -1,0 +1,97 @@
+body {
+    background-image: url('images/background.png'); 
+    background-repeat: no-repeat; 
+    background-position: center; 
+    background-size: cover; 
+    background-attachment: fixed; 
+    min-height: 100vh; 
+    margin: 0;
+}
+
+header {
+    background-color: #a5998d;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.logo-container {
+    background: white;
+    padding: 5px 12px;
+    border-radius: 4px;
+}
+
+.logo {
+    max-width: 100%;
+    height: 95px;
+    display: block;
+}
+
+.slider-container {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    background: #fff;
+}
+
+.slider-container img {
+    width: 800px;
+    height: 400px;
+    object-fit: cover;
+    display: block;
+    justify-content: center;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 10;
+}
+
+.btn-prev {
+    left: 15px;
+}
+
+.btn-next {
+    right: 15px;
+}
+
+.slider-btn:hover {
+    background-color: white;
+    color: #111;
+}
+
+.shop-now-container {
+    display: flex; 
+    gap: 1150px; 
+    justify-content: center;
+}
+
+.shop-now-btn {
+    margin-top: 20px;
+    font-size: 20px;
+    background-color: #807166;
+    color: white;
+    padding: 20px 40px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}

@@ -1,106 +1,33 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>2 Step Sneakers: Homepage</title>
-        <!-- Favicon -->
-        <link rel="icon" type="image/jpg" href="images/logo.png" />
-        <!-- Link to external CSS stylesheet (optional) -->
-        <!-- <link rel="stylesheet" href="style.css"> -->
-    </head>
-    <body>
-        <header>
-            <img src="images/logo.png" alt="2 Step Sneakers" class="center-image" />
-            <style>
-                .center-image {
-                    display: block;
-                    margin-left: 0px;
-                    margin-right: auto;
-                    max-width: 100%;
-                    height: 150px;
-                }
-                .slider-container {
-                    position: relative;
-                    max-width: 800px;
-                    margin: 0 auto;
-                    border-radius: 12px;
-                    overflow: hidden;
-                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-                    background: #fff;
-                }
-                .slider-container img {
-                    width: 800px;
-                    height: 800px;
-                    object-fit: fill;
-                    display: block;
-                    justify-content: center;
-                }
-                .slider-btn {
-                    position: absolute;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    width: 45px;
-                    height: 45px;
-                    border-radius: 50%;
-                    background-color: rgba(255, 255, 255, 0.3);
-                    border: 1px solid rgba(255, 255, 255, 0.4);
-                    color: black;
-                    font-size: 20px;
-                    font-weight: bold;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    cursor: pointer;
-                    transition: 0.3s;
-                    z-index: 10;
-                }
-                .btn-prev {
-                    left: 15px;
-                }
-
-                .btn-next {
-                    right: 15px;
-                }
-                .slider-btn:hover {
-                    background-color: white;
-                    color: #111;
-                }
-            </style>
-        </header>
-
-        <br />
-        <!--Buttons-->
-
-        <!-- Bahagian Slider -->
-        <div class="slider-container">
-            <button class="slider-btn btn-prev"></button>
-            <img src="images/homepage.png" alt="Sneaker Image" />
-            <button class="slider-btn btn-next">></button>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>2 Step Sneakers: Homepage</title>
+    <link rel="icon" type="image/jpg" href="images/logo.png"/>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="images/logo.png" alt="2 Step Sneakers" class="logo"/>
         </div>
+    </header>
 
-        <div style="display: flex; gap: 1150px; justify-content: center">
-            <a
-                href="login_sign_up.html"
-                style="
-                    margin-top: 20px;
-                    font-size: 20px;
-                    background-color: #807166;
-                    color: white;
-                    padding: 20px 40px;
-                    border-radius: 12px;
-                    text-decoration: none;
-                "
-                >Shop Now</a
-            >
-        </div>
+    <br />
 
-        <header>
-            <!-- Link to external JavaScript file (optional) -->
-            <script src="script.js"></script>
-            <body>
-                <html></html>
-            </body>
-        </header>
-    </body>
+    <!-- Bahagian Slider -->
+    <div class="slider-container">
+        <button class="slider-btn btn-prev"></button>
+        <img src="images/homepage.png" alt="Sneaker Image"/>
+        <button class="slider-btn btn-next">></button>
+    </div>
+
+    <div class="shop-now-container">
+        <a href="login_sign_up.html" class="shop-now-btn">Shop Now</a>
+    </div>
+
+    <!-- JavaScript File -->
+    <script src="script.js"></script>
+</body>
 </html>
