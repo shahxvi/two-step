@@ -1,7 +1,7 @@
 //Turutan Images
 const sliderImages = [
     "images/homepage.png",
-    "images/bpball.png",
+    "images/Nike poster.png",
     "images/sambaaa.png"
 ];
 
