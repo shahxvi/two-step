@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("ss", $username, $password);
 
         if ($stmt->execute()) {
-            header("Location: login.php?success=registered");
+            header("Location: browse.html");
             exit();
         } else {
             $error = "Error occurred while registering.";
