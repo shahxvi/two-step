@@ -59,7 +59,7 @@ main {
 
 .form-group {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 25px;
 }
 
@@ -69,6 +69,15 @@ main {
     text-align: right;
     font-size: 18px;
     padding-right: 20px;
+}
+
+.form-group input {
+    width: 100%; 
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box; 
 }
 
 .form-input {
@@ -84,6 +93,7 @@ main {
 .button-container {
     display: flex;
     justify-content: center;
+    margin-top: 100px;
 }
 
 .submit-btn {

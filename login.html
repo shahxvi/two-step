@@ -4,48 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2 Step Sneakers: Login</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpg" href="images/logo.png">
+    <link rel="stylesheet" href="login.css">
 </head>
 <body style="margin: 0; padding: 0;">
-    <header style="background-color: #a5998d;"></header>
-        <div style="background: white; padding: 5px 12px; border-radius: 4px;"></div>
-            <img src="images/white_logo.png" alt="2 STEP" style="max-width:100%; height: 150px; display: block;">
-        </div>
-
-        <!-- Search Bar & Cart Right -->
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <div style="background: white; border-radius: 20px; padding: 5px 15px; display: flex; align-items: center; width: 300px;">
-                <input type="text" placeholder="" style="border: none; outline: none; width: 100%; background: transparent;">
-            </div>
+    <header>
+        <div class="logo-container">
+            <img src="images/logo.png" alt="2 Step Sneakers" class="logo">
         </div>
     </header>
 
     <!-- Main Sign Up Box Container -->
-    <main style="display: flex; justify-content: center; align-items: center; padding: 60px 20px;">
-        <div style="background-color: #d8cec4; width: 100%; max-width: 750px; padding: 50px 40px; border-radius: 12px; box-shadow: 0px 4px 10px rgba(0,0,0,0.05); text-align: center;">
+    <main>
+        <div class="login-box">
             
             <!-- Title -->
-            <h1 style= "font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size: 36px; font-weight: normal; margin-top: 0; margin-bottom: 40px;"><strong>Login</strong></h1>
+            <h1 class="login-title"><strong>Login</strong></h1>
 
             <!-- Sign Up Form -->
-            <form action="browse.html" method="GET" style="max-width: 500px; margin: 0 auto;">
+            <form action="browse.html" method="GET" class="login-form">
                 
                 <!-- Username Field -->
-                <div style="display: flex; align-items: center; margin-bottom: 25px;">
-                    <label style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; width: 130px; text-align: right; font-size: 18px; padding-right: 20px;">Username :</label>
-                    <input type="text" name="username" required style="flex: 1; padding: 12px 15px; border: none; border-radius: 4px; background-color: white; font-size: 16px; outline: none;">
+                <div class="form-group">
+                    <label class="form-label">Username :</label>
+                    <input type="text" name="username" required class="form-input">
                 </div>
 
                 <!-- Password Field -->
-                <div style="display: flex; align-items: center; margin-bottom: 30px;">
-                    <label style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;width: 130px; text-align: right; font-size: 18px; padding-right: 20px;">Password :</label>
-                    <input type="password" name="password" required style="flex: 1; padding: 12px 15px; border: none; border-radius: 4px; background-color: white; font-size: 16px; outline: none;">
+                <div class="form-group">
+                    <label class="form-label">Password :</label>
+                    <input type="password" name="password" required class="form-input">
                 </div>
 
                 <!-- Sign Up Button (Aligned to the right like Canva) -->
-                <div style="display: flex; justify-content: center; gap: 550px;">
-                    <button type="submit" style="white-space: nowrap; border: none; padding: 10px 28px; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0px 2px 4px rgba(0,0,0,0.1);">Sign Up</button>
-                    <button type="submit" style="border: none; padding: 10px 28px; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0px 2px 4px rgba(0,0,0,0.1);">Login</button>
+                <div class="button-container">
+                    <button type="submit" class="sign-up-btn">Sign Up</button>
+                    <button type="submit" class="login-btn">Login</button>
                 </div>
 
             </form>
