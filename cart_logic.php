@@ -1,14 +1,15 @@
 <?php
+session_start();
 include ("db.php");
 
-if (isset($_SESSION["cart"]) && !empty($_SESSION["cart"])) {
-    $_SESSION['cart'] = [];
-} else {
-    $total_price = 0;
-    $cart_items = array_count_values($_SESSION['cart']);
-    }
+$total_price = 0;
+$cart_data = [];
 
-    $stmt = $conn->prepare("SELECT shoe_name, shoe_price, image FROM shoe WHERE shoe_id = ?");
+if (isset($_SESSION["cart"]) && is_array($_SESSION['cart']) && !empty($_SESSION["cart"])) {
+    $cart_items = array_count_values($_SESSION['cart']);
+    
+    foreach ($cart_items as $product_id => $quantity) {
+    $stmt = $conn->prepare("SELECT shoe_name, shoe_price FROM shoe WHERE shoe_id = ?");
     $stmt->bind_param("i", $shoe_id);
     $stmt->execute();
     $result = $stmt->get_result();  
@@ -25,5 +26,7 @@ if (isset($_SESSION["cart"]) && !empty($_SESSION["cart"])) {
             ];
     }
     $stmt->close();
+    }
+}
 ?>  
 
