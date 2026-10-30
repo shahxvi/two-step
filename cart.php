@@ -1,7 +1,6 @@
 <?php
 include 'cart_logic.php';
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,10 +20,26 @@ include 'cart_logic.php';
     <div class="cart-container">
         <h1 class="cart-title"><strong>Shopping Cart</strong></h1>
         <div class="cart-items">
-                
-        </div>
+
+            <?php if (!empty($cart_data)): ?>
+                <?php foreach ($cart_data as $item): ?>
+                    <div class="cart-item-row">
+                        <div class="item-info">
+                            <strong><?php echo htmlspecialchars($item['name']); ?></strong>
+                        </div>
+                        <div class="item-details">
+                            Price: RM<?php echo number_format($item['price'], 2); ?> | 
+                            Quantity: <?php echo $item['quantity']; ?> | 
+                            <b>Subtotal: RM<?php echo number_format($item['subtotal'], 2); ?></b>
+                        </div>
+                        </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p style="text-align: center; padding: 20px;">Your cart is empty.</p>
+            <?php endif; ?>
+            </div>
         <div class="cart-summary">
-            <p>Total: RM<span id="total-price">0.00</span></p>
+            <p>Total: RM<?php echo number_format($total_price, 2); ?></p>
             <button type="submit" class="checkout-btn">Checkout</button>
         </div>
     </div>
