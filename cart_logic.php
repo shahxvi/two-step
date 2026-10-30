@@ -8,18 +8,18 @@ if (isset($_SESSION["cart"]) && !empty($_SESSION["cart"])) {
     $cart_items = array_count_values($_SESSION['cart']);
     }
 
-    $stmt = $conn->prepare("SELECT name, price, image FROM products WHERE shoe_id = ?");
+    $stmt = $conn->prepare("SELECT shoe_name, shoe_price, image FROM shoe WHERE shoe_id = ?");
     $stmt->bind_param("i", $shoe_id);
     $stmt->execute();
     $result = $stmt->get_result();  
 
     if ($row = $result->fetch_assoc()) {
-            $subtotal = $row['price'] * $quantity;
+            $subtotal = $row['shoe_price'] * $quantity;
             $total_price += $subtotal;
 
             $cart_data[] = [
-                'name' => $row['name'],
-                'price' => $row['price'],
+                'name' => $row['shoe_name'],
+                'price' => $row['shoe_price'],
                 'quantity' => $quantity,
                 'subtotal' => $subtotal
             ];

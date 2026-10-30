@@ -1,3 +1,7 @@
+<?php
+include 'cart_logic.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
