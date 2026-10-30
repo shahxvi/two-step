@@ -2,7 +2,7 @@
 include ("db.php");
 
 if (isset($_SESSION["cart"]) && !empty($_SESSION["cart"])) {
-    echo "<p style= 'text-align: center; padding: 20px;'>Your cart is empty <a href='browse.html'>Browse Shoes</a></p>";
+    $_SESSION['cart'] = [];
 } else {
     $total_price = 0;
     $cart_items = array_count_values($_SESSION['cart']);
