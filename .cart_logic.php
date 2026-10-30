@@ -17,16 +17,12 @@ if (isset($_SESSION["cart"]) && !empty($_SESSION["cart"])) {
             $subtotal = $row['price'] * $quantity;
             $total_price += $subtotal;
 
-    echo '<div class="cart-item" style="display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">';
-    echo '<div>';
-    echo '<h3>' . htmlspecialchars($row['name']) . '</h3>';
-    echo '<p>Price: RM ' . number_format($row['price'], 2) . '</p>';
-    echo '<p>Quantity: ' . $quantity . '</p>';
-    echo '</div>';
-    echo '<div>';
-    echo '<p>Subtotal: RM ' . number_format($subtotal, 2) . '</p>';
-    echo '</div>';
-    echo '</div>';
+            $cart_data[] = [
+                'name' => $row['name'],
+                'price' => $row['price'],
+                'quantity' => $quantity,
+                'subtotal' => $subtotal
+            ];
     }
     $stmt->close();
 ?>  
