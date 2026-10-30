@@ -96,6 +96,7 @@ main {
     justify-content: center;
     gap: 550px;
     margin-top: 100px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .sign-up-btn {
@@ -107,6 +108,9 @@ main {
     font-weight: bold; 
     cursor: pointer; 
     box-shadow:0px 2px 4px rgba(0,0,0,0.1);
+    text-decoration: none;
+    background-color: #f0f0f0;
+    color: #333;    
 }
 
 .login-btn {
@@ -118,4 +122,7 @@ main {
     font-weight: bold; 
     cursor: pointer; 
     box-shadow:0px 2px 4px rgba(0,0,0,0.1);
+    text-decoration: none;
+    background-color: #f0f0f0;
+    color: #333; 
 }
