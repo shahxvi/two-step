@@ -11,7 +11,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $check_user->get_result();
 
     if ($result->num_rows > 0) {
-        $error = "Username already exists. Please choose a different username.";
+
+        echo "<script>
+                alert('Username already exists. Please choose a different username.');
+                window.location.href = 'sign_up.html';
+                </script>";
+        exit();
     } else {
         $stmt = $conn->prepare("INSERT INTO USER(username, password) VALUES (?, ?)");
         $stmt->bind_param("ss", $username, $password);
