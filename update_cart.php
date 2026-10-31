@@ -13,7 +13,7 @@ elseif ($action == "minus") {
     $key = array_search($shoe_id, $_SESSION["cart"]);
     if ($key !== false) {
         unset($_SESSION["cart"][$key]);
-        $_SESSION["cart"] = array_values($_SESSION["cart"]); // Susun balik indeks array
+        $_SESSION["cart"] = array_values($_SESSION["cart"]);  // Susun balik indeks array
     }
 }
 
