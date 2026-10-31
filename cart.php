@@ -8,7 +8,7 @@ include 'cart_logic.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2 Step Sneakers: Cart</title>
     <link rel="icon" type="image/jpg" href="images/logo.png"/>
-    <link rel="stylesheet" href="shoe_cart.css">
+    <link rel="stylesheet" href="cart.css">
 </head>
 <body>
     <div class="logo-container">
