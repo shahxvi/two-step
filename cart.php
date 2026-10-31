@@ -11,8 +11,10 @@ include 'cart_logic.php';
     <link rel="stylesheet" href="cart.css">
 </head>
 <body>
-    <div class="logo-container">
+    <div class="logo-container" style ="background-color: #a5998d;">
+        <div style="background-color: white; padding: 5px 12px; border-radius: 4px; display: inline-block;">
             <img src="images/logo.png" alt="2 Step Sneakers" class="logo">
+    </div>
     </div>
 </body>
 
@@ -25,9 +27,9 @@ include 'cart_logic.php';
                 <?php foreach ($cart_data as $item): ?>
                     <div class="cart-item-row">
                         <div class="item-details">
-                            Name: <?php echo htmlspecialchars($item['name']); ?> |
-                            Price: RM<?php echo number_format($item['price'], 2); ?> | 
-                            Quantity: <?php echo $item['quantity']; ?> | 
+                            <b>Name: <?php echo htmlspecialchars($item['name']); ?></b> |
+                            <b>Price: RM<?php echo number_format($item['price'], 2); ?></b> | 
+                            <b>Quantity: <?php echo $item['quantity']; ?></b> | 
                             <b>Subtotal: RM<?php echo number_format($item['subtotal'], 1); ?></b>
                         </div>
                         </div>
