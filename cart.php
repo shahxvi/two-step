@@ -12,7 +12,7 @@ include 'cart_logic.php';
 </head>
 <body>
     <div class="logo-container" style ="background-color: #a5998d;">
-        <div style="background-color: white; padding: 5px 12px; border-radius: 4px; display: inline-block;">
+        <div style="background-color: white; padding: 5px 12px; border-radius: 4px; display: inline-block; margin-right: 20px;">
             <img src="images/logo.png" alt="2 Step Sneakers" class="logo">
     </div>
     </div>
@@ -28,9 +28,19 @@ include 'cart_logic.php';
                     <div class="cart-item-row">
                         <div class="item-details">
                             <b>Name: <?php echo htmlspecialchars($item['name']); ?></b> |
-                            <b>Price: RM<?php echo number_format($item['price'], 2); ?></b> | 
-                            <b>Quantity: <?php echo $item['quantity']; ?></b> | 
-                            <b>Subtotal: RM<?php echo number_format($item['subtotal'], 1); ?></b>
+                            <b>Price: RM<?php echo number_format($item['price'], 2); ?></b> |
+
+                            <!-- Buttons to tambah tolak quantity -->
+                            <span style="margin: 0 10px;">
+                            <a href="update_cart.php?action=minus&shoe_id=<?php echo $item['shoe_id']; ?>" class="add-cart-btn">-</a>
+                            <b>Quantity: <?php echo $item['quantity']; ?></b>
+                            <a href="update_cart.php?action=add&shoe_id=<?php echo $item['shoe_id']; ?>" class="add-cart-btn">+</a>
+                            </span>|
+
+                            <b>Subtotal: RM<?php echo number_format($item['subtotal'], 2); ?></b>
+
+                            <!-- Button untuk buang item -->
+                            <a href="update_cart.php?action=remove&shoe_id=<?php echo $item['shoe_id']; ?>" class="remove-item-btn">Remove</a>
                         </div>
                         </div>
                 <?php endforeach; ?>

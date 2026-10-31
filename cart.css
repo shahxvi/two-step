@@ -98,3 +98,31 @@ header {
     font-weight: bold;
     clear: both;
 }
+
+.add-cart-btn {
+    display: inline-block;
+    padding: 2px 10px;
+    background-color: #060606;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.add-cart-btn:hover {
+    background-color: #333;
+}
+
+.remove-item-btn {
+    display: inline-block;
+    padding: 2px 10px;
+    background-color: #060606;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.remove-item-btn:hover {
+    background-color: #333;
+}

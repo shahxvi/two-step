@@ -19,6 +19,7 @@ if (isset($_SESSION["cart"]) && is_array($_SESSION['cart']) && !empty($_SESSION[
             $total_price += $subtotal;
 
             $cart_data[] = [
+                'shoe_id' => $shoe_id,
                 'name' => $row['shoe_name'],
                 'price' => $row['shoe_price'],
                 'quantity' => $quantity,
