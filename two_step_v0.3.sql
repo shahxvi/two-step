@@ -36,6 +36,7 @@ CREATE TABLE `SHOE`(
     `brand_id` BIGINT NOT NULL,
     `category_id` BIGINT NOT NULL,
     `shoe_name` VARCHAR(255) NOT NULL,
+    `shoe_price` DECIMAL(10, 2) NOT NULL,
     `gender_target_id` BIGINT NOT NULL
 );
 CREATE TABLE `SHOE_VARIANT`(
