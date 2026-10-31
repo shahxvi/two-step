@@ -25,9 +25,10 @@ include 'cart_logic.php';
                 <?php foreach ($cart_data as $item): ?>
                     <div class="cart-item-row">
                         <div class="item-details">
+                            Name: <?php echo htmlspecialchars($item['name']); ?> |
                             Price: RM<?php echo number_format($item['price'], 2); ?> | 
                             Quantity: <?php echo $item['quantity']; ?> | 
-                            <b>Subtotal: RM<?php echo number_format($item['subtotal'], 2); ?></b>
+                            <b>Subtotal: RM<?php echo number_format($item['subtotal'], 1); ?></b>
                         </div>
                         </div>
                 <?php endforeach; ?>
