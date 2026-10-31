@@ -17,13 +17,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($password === $user['password']) {
             session_start();         
             $_SESSION['user_id'] = $user['user_id'];
+            $_SESSION['username'] = $username;
             header("Location: browse.html");
             exit();
         } else {
-            $error = "Invalid username or password.";
+            echo "<script>
+                    alert('Invalid username or password.');
+                    window.location.href = 'login.html';
+                  </script>";
+            exit();
         }
     } else {
-        $error = "Please sign up before logging in.";
+        echo "<script>
+                    alert('Please sign up before logging in.');
+                    window.location.href = 'login.html';
+                  </script>";
+        exit();
         }
         $stmt->close();
     }
