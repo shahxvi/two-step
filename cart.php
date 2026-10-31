@@ -24,9 +24,6 @@ include 'cart_logic.php';
             <?php if (!empty($cart_data)): ?>
                 <?php foreach ($cart_data as $item): ?>
                     <div class="cart-item-row">
-                        <div class="item-info">
-                            <strong><?php echo htmlspecialchars($item['name']); ?></strong>
-                        </div>
                         <div class="item-details">
                             Price: RM<?php echo number_format($item['price'], 2); ?> | 
                             Quantity: <?php echo $item['quantity']; ?> | 
