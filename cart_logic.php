@@ -9,7 +9,7 @@ if (isset($_SESSION["cart"]) && is_array($_SESSION['cart']) && !empty($_SESSION[
     $cart_items = array_count_values($_SESSION['cart']);
     
     foreach ($cart_items as $shoe_id => $quantity) {
-    $stmt = $conn->prepare("SELECT shoe_name, shoe_price FROM shoe WHERE shoe_id = ?");
+    $stmt = $conn->prepare("SELECT shoe_name, shoe_price FROM SHOE WHERE shoe_id = ?");
     $stmt->bind_param("i", $shoe_id);
     $stmt->execute();
     $result = $stmt->get_result();  
