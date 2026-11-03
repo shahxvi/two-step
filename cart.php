@@ -50,7 +50,7 @@ include 'cart_logic.php';
             </div>
         <div class="cart-summary">
             <p>Total: RM<?php echo number_format($total_price, 2); ?></p>
-            <button type="button" class="continue-shopping-btn" onclick="window.location.href='browse.html'">Continue Shopping</button>
-            <button type="submit" class="checkout-btn">Checkout</button>
+            <button type="button" class="continue-shopping-btn" href="browse.html">Continue Shopping</button>
+            <button type="submit" class="checkout-btn" href="checkout.html">Checkout</button>
         </div>
     </div>
