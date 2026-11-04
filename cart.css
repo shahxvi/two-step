@@ -91,9 +91,9 @@ header {
 }
 
 .cart-summary {
-    justify-content: space-between;
+    justify-content: flex;
     align-items: center;
-    gap: 20px;
+    gap: 80x;
     margin-top: 20px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     margin-top: 20px;
