@@ -1,7 +1,242 @@
 body {
-    background-color: beige;
+    background-image: url('images/background.png');
+    background-size: cover;
+    background-attachment: fixed;
+    margin: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: #333;
 }
 
-header {
-    
+/* LOGO */
+.logo-container {
+    background-color: #a5998d;
+}
+
+.logo-box {
+    background-color: white;
+    padding: 5px 12px;
+    display: inline-block;
+}
+
+.logo {
+    height: 95px;
+}
+
+/* RECEIPT BOX */
+.receipt-container {
+    max-width: 860px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #a5998d;
+    border-radius: 10px;
+}
+
+.receipt-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.receipt-title {
+    margin: 0;
+    font-size: 18px;
+    color: black;
+}
+
+.paid-badge {
+    padding: 3px 14px;
+    background-color: black;
+    color: white;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.receipt-paper {
+    background-color: white;
+    border-radius: 8px;
+    padding: 24px;
+}
+
+/* CUSTOMER / ORDER INFO */
+.receipt-meta {
+    display: flex;
+    gap: 20px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #ccc;
+}
+
+.meta-box {
+    flex: 1;
+}
+
+.meta-box h3 {
+    margin: 0 0 8px;
+    padding-bottom: 4px;
+    border-bottom: 2px solid #a5998d;
+    font-size: 13px;
+}
+
+.meta-box p {
+    margin: 4px 0;
+    font-size: 13px;
+}
+
+.items-header,
+.receipt-item-row {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1.3fr 0.6fr 1.3fr;
+    gap: 10px;
+    padding: 12px 0;
+    font-size: 14px;
+}
+
+.items-header {
+    margin-top: 16px;
+    border-bottom: 2px solid #a5998d;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.receipt-item-row {
+    border-bottom: 1px solid #ccc;
+}
+
+.col-price,
+.col-sub {
+    text-align: right;
+}
+
+.col-qty {
+    text-align: center;
+}
+
+/* TOTAL */
+.receipt-summary {
+    margin-top: 20px;
+    text-align: right;
+    font-size: 16px;
+}
+
+.discount-line {
+    color: green;
+}
+
+.grand-total {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #a5998d;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.receipt-note {
+    margin-top: 20px;
+    padding: 12px 16px;
+    background-color: #f4f1ee;
+    border-left: 4px solid #a5998d;
+    font-size: 13px;
+}
+
+.thanks {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 2px dashed #ccc;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* BUTTONS */
+.receipt-actions {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.receipt-btn {
+    padding: 10px 22px;
+    margin-left: 8px;
+    border: none;
+    border-radius: 6px;
+    background-color: black;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@media (max-width: 720px) {
+    .receipt-container {
+        margin: 20px 10px;
+    }
+
+    .receipt-meta {
+        flex-direction: column;
+    }
+
+    .items-header {
+        display: none;
+    }
+
+    .receipt-item-row {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .receipt-item-row .col-name {
+        grid-column: 1 / -1;
+    }
+
+    .col-price,
+    .col-sub,
+    .col-qty {
+        text-align: left;
+    }
+}
+
+/* PRINT */
+@media print {
+    body {
+        background: white;
+    }
+
+    .receipt-container {
+        margin: 0;
+    }
+
+    .no-print {
+        display: none;
+    }
+}
+
+.receipt-total {
+    justify-content: flex;
+    align-items: center;
+    gap: 80x;
+    margin-top: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-top: 20px;
+    text-align: right;
+    font-size: 18px;
+    font-weight: bold;
+    clear: both;
+}
+
+.receipt-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.receipt-table th, /* table header */
+.receipt-table td { /* table data cell */
+    padding: 14px 20px;
+    text-align: right;
+    border-bottom: 1px solid #ddd;
+}
+
+.receipt-table th:first-child,
+.receipt-table td:first-child {
+    text-align: left;
 }
