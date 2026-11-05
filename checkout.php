@@ -1,5 +1,69 @@
 <?php
-include 'receipt.php';
+// Pastikan sesi bermula
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Sambungan database
+include 'db.php';
+
+// Semak login
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];
+$total_price = 0;
+$cart_data = [];
+
+$sql = "SELECT CART.quantity, SHOE.shoe_id, SHOE.shoe_name AS name, SHOE.shoe_price AS price 
+        FROM CART 
+        JOIN SHOE ON CART.shoe_id = SHOE.shoe_id 
+        WHERE CART.user_id = ?";
+
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+while ($row = $result->fetch_assoc()) {
+    $subtotal = $row['price'] * $row['quantity'];
+    $total_price += $subtotal;
+    
+    $cart_data[] = [
+        'shoe_id'  => $row['shoe_id'],
+        'name'     => $row['name'],
+        'price'    => $row['price'],
+        'quantity' => $row['quantity'],
+        'subtotal' => $subtotal
+    ];
+}
+$stmt->close();
+
+if (!empty($cart_data)) {
+    
+    $status_id = 1;
+
+    $insert_order = $conn->prepare("INSERT INTO CUSTOMER_ORDER (user_id, status_id, order_date_time) VALUES (?, ?, NOW())");
+    
+    if (!$insert_order) {
+        die("Prepare failed: " . $conn->error);
+    }
+
+    $insert_order->bind_param("ii", $user_id, $status_id);
+    
+    if (!$insert_order->execute()) {
+        die("Execute failed: " . $insert_order->error);
+    }
+    
+    $insert_order->close();
+
+    $clear_cart = $conn->prepare("DELETE FROM CART WHERE user_id = ?");
+    $clear_cart->bind_param("i", $user_id);
+    $clear_cart->execute();
+    $clear_cart->close();
+}
 ?>
 
 <!DOCTYPE html>
