@@ -38,7 +38,7 @@ main {
 .signup-box {
     background-color: #a5998d;
     width: 800px;
-    height: 320px;
+    height: 380px;
     padding: 50px 40px;
     border-radius: 12px;
     text-align: center;
@@ -104,4 +104,14 @@ main {
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
+}
+
+.select-button {
+    width: 100%;
+    padding: 10px 28px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+    margin-left: 0;   /* remove the 75px push */
 }
