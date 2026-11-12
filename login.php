@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($user['role_id'] === 1) {
                 header("Location:browse.html");
             } else if ($user['role_id'] === 2) {
-                header("Location:staff_dashboard.html");
+                header("Location:staff_dashboard.php");
             }  else if ($user['role_id'] === 3) {
                 header("Location:admin_dashboard.html");
             } else {
