@@ -1,5 +1,5 @@
 body {
-    background-image: url('images/background.png'); 
+    background-color: #807166; 
     background-repeat: no-repeat; 
     background-position: center; 
     background-size: cover; 
@@ -9,7 +9,7 @@ body {
 }
 
 header {
-    background-color: #a5998d;
+    background-color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -36,6 +36,7 @@ header {
     overflow: hidden;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     background: #fff;
+    margin-top: 80px;
 }
 
 .slider-container img {
@@ -88,8 +89,8 @@ header {
 .shop-now-btn {
     margin-top: 20px;
     font-size: 20px;
-    background-color: #807166;
-    color: white;
+    background-color: white;
+    color: #807166;
     padding: 20px 40px;
     border-radius: 12px;
     text-decoration: none;
