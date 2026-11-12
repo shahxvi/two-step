@@ -1,5 +1,5 @@
 body {
-    background-image: url('images/background.png'); 
+    background-color: #807166; 
     background-repeat: no-repeat; 
     background-position: center; 
     background-size: cover; 
@@ -9,7 +9,7 @@ body {
 }
 
 header {
-    background-color: #a5998d;
+    background-color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -32,4 +32,14 @@ main {
  padding: 20px;
  max-width: 1200px;
  margin: 0 auto;
+}
+
+.submit-button {
+    display: inline-block; 
+    padding: 10px 20px; 
+    background-color: #a5998d; 
+    color: white; 
+    text-decoration: none; 
+    border-radius: 5px; 
+    margin-top: auto;"
 }
