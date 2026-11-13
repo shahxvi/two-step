@@ -1,8 +1,9 @@
 <?php
+// PHP MySQLi Object-Oriented Connection
 $servername = "localhost";
 $username = "root";
-$password = "";
-$dbname = "TWO_STEP";
+$password = "482377";
+$dbname = "two_step";
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -11,5 +12,5 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }
-//echo "Connected successfully";
+// echo "Connected successfully";
 ?>

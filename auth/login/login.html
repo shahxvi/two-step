@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2 Step Sneakers: Login</title>
+    <base href="/two-step/">
     <link rel="icon" type="image/jpg" href="images/logo.png"> <!-- Favicon -->
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="auth/login/login.css">
 </head>
 <body>
     <header>
@@ -16,29 +17,21 @@
     <main> <!-- Main Sign Up Box Container -->
         <div class="login-box">
             <h1 class="login-title"><strong>Login</strong></h1> <!-- Title -->
-            <form action="login.php" method="POST" class="login-form"> <!-- Sign Up Form -->
-                <!-- Username Field -->
-                <div class="form-group">
+            <form action="auth/login/login.php" method="POST" class="login-form"> <!-- Sign Up Form -->
+                <div class="form-group"> <!-- Username Field -->
                     <label class="form-label">Username :</label>
                     <input type="text" name="username" required class="form-input">
                 </div>
-
-                <!-- Password Field -->
-                <div class="form-group">
+                <div class="form-group"> <!-- Password Field -->
                     <label class="form-label">Password :</label>
                     <input type="password" name="password" required class="form-input">
                 </div>
-
-                <!-- Sign Up Button (Aligned to the right like Canva) -->
-                <div class="button-container">
-                    <a href="sign_up.html" class="sign-up-btn"><strong>Sign Up</strong></a>
+                <div class="button-container"> <!-- Sign Up Button (Aligned to the right like Canva) -->
+                    <a href="auth/signup/sign_up.html" class="sign-up-btn"><strong>Sign Up</strong></a>
                     <button type="submit" class="login-btn">Login</button>
-                    
                 </div>
             </form>
         </div>
     </main>
-
-    <script src="script.js"></script>
 </body>
 </html>

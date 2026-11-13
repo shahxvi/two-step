@@ -1,14 +1,16 @@
 <?php
 include 'cart_logic.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2 Step Sneakers: Cart</title>
+    <base href="/two-step/">
     <link rel="icon" type="image/jpg" href="images/logo.png"/>
-    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="customer/cart/cart.css">
 </head>
 <body>
     <div class="logo-container" style ="background-color: #a5998d;">
@@ -22,7 +24,6 @@ include 'cart_logic.php';
     <div class="cart-container">
         <h1 class="cart-title"><strong>Shopping Cart</strong></h1>
         <div class="cart-items">
-
             <?php if (!empty($cart_data)): ?>
                 <?php foreach ($cart_data as $item): ?>
                     <div class="cart-item-row">
@@ -32,9 +33,9 @@ include 'cart_logic.php';
 
                             <!-- Buttons to tambah tolak quantity -->
                             <span style="margin: 0 10px;">
-                            <a href="update_cart.php?action=minus&shoe_id=<?php echo $item['shoe_id']; ?>" class="add-cart-btn">-</a>
+                            <a href="customer/cart/update_cart.php?action=minus&shoe_id=<?php echo $item['shoe_id']; ?>" class="add-cart-btn">-</a>
                             <b>Quantity: <?php echo $item['quantity']; ?></b>
-                            <a href="update_cart.php?action=add&shoe_id=<?php echo $item['shoe_id']; ?>" class="add-cart-btn">+</a>
+                            <a href="customer/cart/update_cart.php?action=add&shoe_id=<?php echo $item['shoe_id']; ?>" class="add-cart-btn">+</a>
                             </span>|
 
                             <b>Subtotal: RM<?php echo number_format($item['subtotal'], 2); ?></b>
@@ -50,7 +51,7 @@ include 'cart_logic.php';
             </div>
         <div class="cart-summary">
             <p>Total: RM<?php echo number_format($total_price, 2); ?></p>
-            <button type="button" class="continue-shopping-btn" onclick="window.location.href='browse.html'">Continue Shopping</button>
+            <button type="button" class="continue-shopping-btn" onclick="window.location.href='customer/browse.php'">Continue Shopping</button>
             <button type="submit" class="checkout-btn" onclick="window.location.href='checkout.php'">Checkout</button>
         </div>
     </div>

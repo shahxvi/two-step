@@ -1,9 +1,9 @@
 <?php
-include 'db.php';
+require_once __DIR__ . '/../../config/db.php';
 
-const ROLE_CUSTOMER = 1;
+const ROLE_ADMIN    = 1;
 const ROLE_STAFF    = 2;
-const ROLE_ADMIN    = 3;
+const ROLE_CUSTOMER = 3;
 const ALLOWED_SIGNUP_ROLES = [ROLE_CUSTOMER, ROLE_STAFF, ROLE_ADMIN];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $role_id = ROLE_CUSTOMER;
     }
 
-    $check_user = $conn->prepare("SELECT user_id FROM USER WHERE username = ?");
+    $check_user = $conn->prepare("SELECT user_id FROM user WHERE username = ?");
     $check_user->bind_param("s", $username);
     $check_user->execute();
     $result = $check_user->get_result();
@@ -28,11 +28,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    $stmt = $conn->prepare("INSERT INTO USER (username, password, role_id) VALUES (?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO user (username, password, role_id) VALUES (?, ?, ?)");
     $stmt->bind_param("ssi", $username, $password, $role_id);
 
     if ($stmt->execute()) {
-        header("Location: browse.html");
+        header("Location: ../../customer/browse.php");
         exit();
     } else {
         echo "<script>

@@ -1,9 +1,9 @@
 <?php
-include 'db.php';
+require_once __DIR__ . '/../../config/db.php';
 
-const ROLE_CUSTOMER = 1;
+const ROLE_ADMIN    = 1;
 const ROLE_STAFF    = 2;
-const ROLE_ADMIN    = 3;
+const ROLE_CUSTOMER = 3;
 const ALLOWED_SIGNUP_ROLES = [ROLE_CUSTOMER, ROLE_STAFF, ROLE_ADMIN];
 
 $error = "";
@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $role_id = ROLE_CUSTOMER;
     }
 
-    $stmt = $conn->prepare("SELECT user_id, password, role_id FROM USER WHERE username = ?");
+    $stmt = $conn->prepare("SELECT user_id, password, role_id FROM user WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -29,11 +29,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['role_id'] = $user['role_id'];
 
             if ($user['role_id'] === 1) {
-                header("Location:browse.html");
+                header("Location:../../admin/admin_dashboard.php");
+                exit();
             } else if ($user['role_id'] === 2) {
-                header("Location:staff_dashboard.php");
+                header("Location:../../staff/staff_dashboard.php");
+                exit();
             }  else if ($user['role_id'] === 3) {
-                header("Location:admin_dashboard.html");
+                header("Location:../../customer/browse.php");
+                exit();
             } else {
             echo "<script>
                     alert('Invalid username or password.');
@@ -48,7 +51,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   </script>";
         exit();
         }
-        $stmt->close();
     }
 }
 ?>
