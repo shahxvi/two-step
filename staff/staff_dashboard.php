@@ -17,8 +17,9 @@ $sql = "SELECT customer_order_id, user_id, status_id,
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>2 Step Sneakers: Sign Up</title>
+    <base href="/two-step/">
     <link rel="icon" type="image/jpg" href="images/logo.png">
-    <link rel="stylesheet" href="staff_dashboard.css">
+    <link rel="stylesheet" href="staff/staff_dashboard.css">
 </head>
 
 <body>
