@@ -18,7 +18,7 @@ $user_id = $_SESSION['user_id'];
 $total_price = 0;
 $cart_data = [];
 
-$sql = "SELECT cart.quantity, shoe.shoe_id, shoe.shoe_name AS name, shoe.shoe_price AS price 
+$sql = "SELECT cart.quantity, shoe.shoe_id, shoe.shoe_name AS name, shoe.shoe_price AS price, cart.size, cart.color 
         FROM cart 
         JOIN shoe ON cart.shoe_id = shoe.shoe_id 
         WHERE cart.user_id = ?";
@@ -37,6 +37,8 @@ while ($row = $result->fetch_assoc()) {
         'name'     => $row['name'],
         'price'    => $row['price'],
         'quantity' => $row['quantity'],
+        'size'     => $row['size'],
+        'color'    => $row['color'],
         'subtotal' => $subtotal
     ];
 }

@@ -30,6 +30,8 @@ include 'cart_logic.php';
                         <div class="item-details">
                             <b>Name: <?php echo htmlspecialchars($item['name']); ?></b> |
                             <b>Price: RM<?php echo number_format($item['price'], 2); ?></b> |
+                            <small><b>Size: </b><?php echo htmlspecialchars($item['size']); ?></small> |
+                            <small><b>Color: </b><?php echo htmlspecialchars($item['color']); ?></small> |
 
                             <!-- Buttons to tambah tolak quantity -->
                             <span style="margin: 0 10px;">

@@ -50,10 +50,7 @@ if ($result === false) {
                     <p><?= htmlspecialchars($shoe['description'], ENT_QUOTES, 'UTF-8') ?></p>
                     <p><strong>RM<?= number_format((float) $shoe['shoe_price'], 2) ?></strong></p>
 
-                    <form action="customer/cart/add_to_cart.php" method="POST">
-                        <input type="hidden" name="shoe_id" value="<?= (int) $shoe['shoe_id'] ?>">
-                        <button type="submit" class="submit-button">Buy Now</button>
-                    </form>
+                    <a href="customer/shoe_detail.php?id=<?= (int) $shoe['shoe_id'] ?>" style="display: inline-block; background: #333; color: white; padding: 8px 12px; border-radius: 5px; text-decoration: none; margin-top: auto;">Select Options</a>
                 </div>
             <?php endwhile; ?>
         </div>
