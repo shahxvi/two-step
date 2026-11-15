@@ -52,6 +52,6 @@ include 'cart_logic.php';
         <div class="cart-summary">
             <p>Total: RM<?php echo number_format($total_price, 2); ?></p>
             <button type="button" class="continue-shopping-btn" onclick="window.location.href='customer/browse.php'">Continue Shopping</button>
-            <button type="submit" class="checkout-btn" onclick="window.location.href='checkout.php'">Checkout</button>
+            <button type="submit" class="checkout-btn" onclick="window.location.href='customer/checkout/checkout.php'">Checkout</button>
         </div>
     </div>
