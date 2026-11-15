@@ -18,9 +18,12 @@ $user_id = $_SESSION['user_id'];
 $total_price = 0;
 $cart_data = [];
 
-$sql = "SELECT cart.quantity, shoe.shoe_id, shoe.shoe_name AS name, shoe.shoe_price AS price, cart.size, cart.color 
+$sql = "SELECT cart.quantity, shoe.shoe_id, shoe.shoe_name AS name, shoe.shoe_price AS price, size.size_uk, color.color_name
         FROM cart 
         JOIN shoe ON cart.shoe_id = shoe.shoe_id 
+        JOIN shoe_variant ON cart.shoe_variant_id = shoe_variant.shoe_variant_id
+        JOIN size ON shoe_variant.size_id = size.size_id
+        JOIN color ON shoe_variant.color_id = color.color_id
         WHERE cart.user_id = ?";
 
 $stmt = $conn->prepare($sql);

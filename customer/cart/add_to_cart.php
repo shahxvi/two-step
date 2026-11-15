@@ -2,21 +2,18 @@
 session_start();
 require_once __DIR__ . '/../../config/db.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['shoe_id'])) {
-    $shoe_id  = $_POST['shoe_id'];
-    $user_id  = $_SESSION['user_id'];
-    $quantity = 1;
-    $size     = $_POST['size'];
-    $color    = $_POST['color'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['shoe_variant_id'])) {
+    $user_id         = $_SESSION['user_id'];
+    $shoe_variant_id = $_POST['shoe_variant_id'];
+    $quantity        = 1;
 
 
-    $check = $conn->prepare("SELECT cart_id, quantity FROM cart WHERE user_id = ? AND shoe_id = ? AND size = ? AND color = ?");
-    $check->bind_param("iiss", $user_id, $shoe_id, $size, $color);
+    $check = $conn->prepare("SELECT cart_id, quantity FROM cart WHERE user_id = ? AND shoe_variant_id = ?");
+    $check->bind_param("ii", $user_id, $shoe_variant_id);
     $check->execute();
     $result = $check->get_result();
 
     if ($result->num_rows > 0) {
-
         $row = $result->fetch_assoc();
         $cart_id = $row['cart_id'];
 
@@ -25,16 +22,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['shoe_id'])) {
         $update->execute();
         $update->close();
     } else {
-
-        $insert = $conn->prepare("INSERT INTO cart (user_id, shoe_id, quantity, size, color) VALUES (?, ?, ?, ?, ?)");
-        $insert->bind_param("iiiss", $user_id, $shoe_id, $quantity, $size, $color);
+        $insert = $conn->prepare("INSERT INTO cart (user_id, shoe_variant_id, quantity) VALUES (?, ?, ?)");
+        $insert->bind_param("iii", $user_id, $shoe_variant_id, $quantity);
         $insert->execute();
         $insert->close();
     }
 
     $check->close();
-
-
     header("Location: cart.php");
     exit();
 
