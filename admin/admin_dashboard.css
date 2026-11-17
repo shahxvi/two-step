@@ -1,59 +1,74 @@
-.logo-container {
+header {
+    background-color: #ffffff;
     display: flex;
-    align-items: center;   
-    gap: 12px;   
-    align-items: flex-start;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+body {
+    background-color: #807166; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+    background-size: cover; 
+    background-attachment: fixed; 
+    min-height: 100vh; 
+    margin: 0;
+}
+
+.logo-container {
+    background: white;
+    padding: 5px 12px;
+    border-radius: 4px;
 }
 
 .logo {
     max-width: 100%;
     height: 95px;
-    display: inline-block;
+    display: block;
 }
 
-.black-line {
-    height: 100vh;
-    border-left: 2px solid black;
-    display: inline-block;
-}
-
-.panel {
-    background: #eae7e2;
+.staff-container {
+    margin: 20px;
     padding: 20px;
-    min-height: 420px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.panel h2 {
-    font-weight: 400;
-    font-size: 28px;
-    margin-bottom: 18px;
+/* Table Styling */
+.staff-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
 }
 
-.row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    background: #fff;
-    padding: 16px 18px;
-    margin-bottom: 10px;
-    text-decoration: none;
-    color: #000;
-    font-size: 15px;
-}
-
-a.row:hover { background: #f5f3ef; }
-.row.empty  { justify-content: center; color: #777; }
-
-.order-id { font-weight: 700; }
-.total    { font-weight: 600; }
-
-.badge {
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 13px;
+.staff-table th {
+    color: #dcdcdc;
+    text-align: left;
+    padding: 0 15px;
+    font-size: 14px;
     font-weight: 600;
 }
-.badge.pending    { background: #ffe9a8; color: #7a5a00; }
-.badge.processing { background: #cfe3ff; color: #0b4a9e; }
-.badge.shipped    { background: #d4f1d9; color: #1b6b2e; }
+
+.staff-table tbody tr {
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.staff-table td {
+    padding: 14px 15px;
+    color: #333333;
+    font-size: 14px;
+}
+
+/* Rounded corners for table row "pills" */
+.staff-table tbody tr td:first-child {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.staff-table tbody tr td:last-child {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
