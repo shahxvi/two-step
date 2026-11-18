@@ -1,14 +1,16 @@
 <?php
+session_start();
 require_once __DIR__ . '/../config/db.php';
 
 function e($text) {
     return htmlspecialchars((string)$text, ENT_QUOTES, 'UTF-8');
 }
 
-$sql = "SELECT customer_order_id, user_id, status_id,
-        FROM customer_order
-        LIMIT 5";
-
+$stmt = $conn->prepare("SELECT username FROM user WHERE user_id = ?");
+$stmt->bind_param("i", $_SESSION['user_id']);
+$stmt->execute();
+$staff = $stmt->get_result()->fetch_assoc();
+$staffName = $staff ? $staff['username'] : "Staff";
 ?>
 
 <!DOCTYPE html>
@@ -16,9 +18,9 @@ $sql = "SELECT customer_order_id, user_id, status_id,
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>2 Step Sneakers: Sign Up</title>
+    <title>2 Step Sneakers: Staff Dashboard</title>
     <base href="/two-step/">
-    <link rel="icon" type="image/jpg" href="images/logo.png">
+    <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="stylesheet" href="staff/staff_dashboard.css">
 </head>
 
@@ -28,25 +30,14 @@ $sql = "SELECT customer_order_id, user_id, status_id,
             <img src="images/logo.png" alt="2 Step Sneakers" class="logo">
         </div>
     </header>
-        <main>
-        <h1>Hello Staff!</h1>
-            <div class="panel orders-panel">
-                <h2>Current order status</h2>
-        <?php if (empty($orders)): ?>
+
+    <main>
+        <h1>Hello <?= e($staffName) ?>!</h1>
+
+        <div class="panel orders-panel">
+            <h2>Current order status</h2>
             <div class="row empty">No active orders right now.</div>
-        <?php else: ?>
-            <?php foreach ($orders as $o): ?>
-                <a class="row" href="order_details.php?id=<?= (int)$o['order_id'] ?>">
-                    <span class="order-id">#<?= (int)$o['order_id'] ?></span>
-                    <span class="cust"><?= e($o['full_name']) ?></span>
-                    <span class="date"><?= date('d M Y, h:i A', strtotime($o['order_date'])) ?></span>
-                    <span class="total">RM <?= number_format($o['total'], 2) ?></span>
-                    <span class="badge <?= strtolower(e($o['status'])) ?>"><?= e($o['status']) ?></span>
-                </a>
-            <?php endforeach; ?>
-        <?php endif; ?>
-            </div>
         </div>
-        </main>
+    </main>
 </body>
 </html>
