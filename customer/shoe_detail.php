@@ -31,8 +31,9 @@ $variants_result = $stmt_var->get_result();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><= htmlspecialchars($shoe['shoe_name']) ?> - Details</title>
+    <title>2 Step Sneakers - Shoe Details</title>
     <base href="/two-step/">
+    <link rel="icon" type="image/png" href="images/logo.png"/>
     <link rel="stylesheet" href="customer/browse.css">
 </head>
 <body>

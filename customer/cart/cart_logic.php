@@ -11,7 +11,7 @@ $cart_data = [];
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
 
-    $sql = "SELECT cart.cart_id, cart.quantity, shoe.shoe_id, shoe.shoe_name, shoe.shoe_price, size.size_uk, color.color_name
+    $sql = "SELECT cart.cart_id, cart.shoe_variant_id, cart.quantity, shoe.shoe_id, shoe.shoe_name, shoe.shoe_price, size.size_uk, color.color_name
             FROM cart 
             JOIN shoe_variant ON cart.shoe_variant_id = shoe_variant.shoe_variant_id
             JOIN shoe ON shoe_variant.shoe_id = shoe.shoe_id
@@ -30,7 +30,7 @@ if (isset($_SESSION['user_id'])) {
 
         $cart_data[] = [
             'cart_id'  => $row['cart_id'],
-            'shoe_id'  => $row['shoe_id'],
+            'shoe_variant_id'=> $row['shoe_variant_id'],
             'name'     => $row['shoe_name'],
             'price'    => $row['shoe_price'],
             'quantity' => $row['quantity'],
