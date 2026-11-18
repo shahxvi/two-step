@@ -26,11 +26,12 @@ $sql = "SELECT customer_order_id, user_id, status_id,
     <header>
         <div class="logo-container">
             <img src="images/logo.png" alt="2 Step Sneakers" class="logo">
-            <div class="black-line"></div>
-            <h1>Hello Staff!</h1>
+        </div>
+    </header>
+        <main>
+        <h1>Hello Staff!</h1>
             <div class="panel orders-panel">
-        <h2>Current order status</h2>
-    
+                <h2>Current order status</h2>
         <?php if (empty($orders)): ?>
             <div class="row empty">No active orders right now.</div>
         <?php else: ?>
@@ -46,6 +47,6 @@ $sql = "SELECT customer_order_id, user_id, status_id,
         <?php endif; ?>
             </div>
         </div>
-    </header>
+        </main>
 </body>
 </html>
