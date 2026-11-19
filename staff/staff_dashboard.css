@@ -34,6 +34,23 @@ main {
     margin: 0 auto;
    }
 
+h1 {
+    margin-top: 10px;
+    color:#eae7e2;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+h2 {
+    margin-top: 10px;
+    color: #807166;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+th {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color:#eae7e2;
+}
+
 .panel {
     background: #eae7e2;
     padding: 20px;
@@ -57,6 +74,39 @@ main {
     text-decoration: none;
     color: #000;
     font-size: 15px;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 16px;
+}
+
+.orders-table th {
+    background-color: #7f7366;
+    color: #ffffff;
+    padding: 12px 10px;
+    text-align: left;
+}
+
+.orders-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #c9c5bd;
+    color: #000000;
+}
+
+.orders-table tbody tr:nth-child(even) {
+    background-color: #f4f3ef;
+}
+
+.orders-table tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.orders-table .no-order {
+    text-align: center;
+    padding: 20px;
 }
 
 a.row:hover { background: #f5f3ef; }
