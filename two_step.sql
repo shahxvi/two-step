@@ -252,6 +252,9 @@ ALTER TABLE `size` AUTO_INCREMENT = 5;
 ALTER TABLE `status` AUTO_INCREMENT = 4;
 ALTER TABLE `user` AUTO_INCREMENT = 10;
 
+/* Alter table for staff dashboard (manage order) */
+ALTER TABLE customer_order ADD COLUMN is_completed TINYINT(1) NOT NULL DEFAULT 0;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
