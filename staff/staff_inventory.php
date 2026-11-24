@@ -102,10 +102,10 @@ $msg = $_GET['msg'] ?? '';
             <table class="orders-table">
                 <thead>
                     <tr>
-                        <th>Product ID</th>
+                        <th>Shoe ID</th>
                         <th>Shoe Name</th>
                         <th>Price (RM)</th>
-                        <th>Manage</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -114,7 +114,7 @@ $msg = $_GET['msg'] ?? '';
                             <tr>
                                 <td>#SHOE<?= str_pad($row['shoe_id'], 3, "0", STR_PAD_LEFT) ?></td>
                                 <td><?= e($row['shoe_name']) ?></td>
-                                <td>RM<?= number_format($row['shoe_price'], 0) ?></td>
+                                <td><?= number_format($row['shoe_price'], 0) ?></td>
                                 <td><button class="manage-btn" onclick="openPopup('manage-<?= (int)$row['shoe_id'] ?>')">Manage</button></td>
                             </tr>
                         <?php endforeach; ?>

@@ -2,9 +2,10 @@
 require_once __DIR__ . '/../config/db.php';
 
 $sql = "
-    SELECT shoe_id, shoe_name, shoe_price, image_path, description
-    FROM shoe
-    ORDER BY shoe_id
+    SELECT s.shoe_id, s.shoe_name, s.shoe_price, s.image_path, b.brand_name
+    FROM shoe AS s
+    JOIN brand AS b ON b.brand_id = s.brand_id
+    ORDER BY s.shoe_id
 ";
 $result = $conn->query($sql);
 
@@ -45,11 +46,11 @@ if ($result === false) {
                         alt="<?= htmlspecialchars($shoe['shoe_name'], ENT_QUOTES, 'UTF-8') ?>"
                         style="width: 100%; border-radius: 10px;"
                     >
-                    <h3><?= htmlspecialchars($shoe['shoe_name'], ENT_QUOTES, 'UTF-8') ?></h3>
-                    <p><?= htmlspecialchars($shoe['description'], ENT_QUOTES, 'UTF-8') ?></p>
+                    <h3><?= htmlspecialchars($shoe['brand_name'], ENT_QUOTES, 'UTF-8') ?></h3>
+                    <p><?= htmlspecialchars($shoe['shoe_name'], ENT_QUOTES, 'UTF-8') ?></p>
                     <p><strong>RM<?= number_format((float) $shoe['shoe_price'], 2) ?></strong></p>
 
-                    <a href="customer/shoe_detail.php?id=<?= (int) $shoe['shoe_id'] ?>" style="display: inline-block; background: #a5998d; color: white; padding: 8px 12px; border-radius: 5px; text-decoration: none; margin-top: auto;">Select Options</a>
+                    <a href="customer/shoe_detail.php?id=<?= (int) $shoe['shoe_id'] ?>" style="display: inline-block; background: black; color: white; padding: 8px 12px; border-radius: 5px; text-decoration: none; margin-top: auto;">Select Options</a>
                 </div>
             <?php endwhile; ?>
         </div>
