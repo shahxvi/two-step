@@ -25,6 +25,7 @@ $result = mysqli_query($conn, $sql);
             <a><strong>Dashboard</strong></a> |
             <a><strong>Staff</strong></a> |
             <a><strong>Customer</strong></a> |
+            <a href="/phpmyadmin/" target="_blank" rel="noopener"><strong>phpMyAdmin</strong></a> |
             <a href="auth/login/login.html"><strong>Log Out</strong></a>
         </nav>
     </header>
