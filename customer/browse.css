@@ -1,3 +1,9 @@
+main {
+ padding: 20px;
+ max-width: 1200px;
+ margin: 0 auto;
+}
+
 body {
     background-color: #807166; 
     background-repeat: no-repeat; 
@@ -6,6 +12,7 @@ body {
     background-attachment: fixed; 
     min-height: 100vh; 
     margin: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 header {
@@ -28,11 +35,6 @@ header {
     display: block;
 }
 
-main {
- padding: 20px;
- max-width: 1200px;
- margin: 0 auto;
-}
 
 .submit-button {
     display: inline-block; 

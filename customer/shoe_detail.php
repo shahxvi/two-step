@@ -42,7 +42,19 @@ $stmt_var->close();
     <link rel="stylesheet" href="customer/browse.css">
 </head>
 <body>
-    <div style="max-width: 600px; margin: 50px auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+    <header>
+        <div class="logo-container">
+            <a href="customer/browse.php"><img src="images/logo.png" alt="2 Step Sneakers Logo" class="logo"></a>
+        </div>
+        <nav>
+            <a href="customer/browse.php"><strong>Browse</strong></a> |
+            <a href="customer/cart/cart.php"><strong>Cart</strong></a> |
+            <a href="customer/account/logout.php"><strong>Logout</strong></a>
+        </nav>
+    </header>
+
+
+    <div style="max-width: 300px; margin: 50px auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
         
         <img src="<?= htmlspecialchars($shoe['image_path']) ?>" alt="<?= htmlspecialchars($shoe['shoe_name']) ?>" style="width: 100%; border-radius: 10px;">
         <h2><?= htmlspecialchars($shoe['shoe_name']) ?></h2>

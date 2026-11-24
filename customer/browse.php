@@ -30,7 +30,6 @@ if ($result === false) {
             <img src="images/logo.png" alt="2 Step Sneakers" class="logo">
         </div>
         <nav>
-            <a href="index.html"><strong>Home</strong></a> |
             <a href="customer/browse.php"><strong>Browse</strong></a> |
             <a href="customer/cart/cart.php"><strong>Cart</strong></a> |
             <a href="auth/login/login.html"><strong>Logout</strong></a>

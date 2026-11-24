@@ -13,11 +13,16 @@ include 'cart_logic.php';
     <link rel="stylesheet" href="customer/cart/cart.css">
 </head>
 <body>
-    <div class="logo-container" style="background-color: #a5998d;">
-        <div style="background-color: white; padding: 5px 12px; border-radius: 4px; display: inline-block; margin-right: 20px;">
+    <header>
+        <div class="logo-container">
             <img src="images/logo.png" alt="2 Step Sneakers" class="logo">
         </div>
-    </div>
+        <nav>
+            <a href="customer/browse.php"><strong>Browse</strong></a> |
+            <a href="customer/cart/cart.php"><strong>Cart</strong></a> |
+            <a href="auth/login/login.html"><strong>Logout</strong></a>
+        </nav>
+    </header>
 
     <main>
         <div class="cart-container">
