@@ -4,16 +4,20 @@ require_once __DIR__ . '/../../config/db.php';
 const ROLE_ADMIN    = 1;
 const ROLE_STAFF    = 2;
 const ROLE_CUSTOMER = 3;
-const ALLOWED_SIGNUP_ROLES = [ROLE_CUSTOMER, ROLE_STAFF, ROLE_ADMIN];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
 
-    $role_id = filter_var($_POST['role_id'] ?? null, FILTER_VALIDATE_INT);
-    if ($role_id === false || $role_id === null || !in_array($role_id, ALLOWED_SIGNUP_ROLES, true)) {
-        $role_id = ROLE_CUSTOMER;
+    if ($username === '' || strlen($password) < 6) {
+        echo "<script>
+                alert('Enter a username and a password of at least 6 characters.');
+                window.location.href = 'sign_up.html';
+              </script>";
+        exit();
     }
+
+    $role_id = ROLE_CUSTOMER;
 
     $check_user = $conn->prepare("SELECT user_id FROM user WHERE username = ?");
     $check_user->bind_param("s", $username);
@@ -28,10 +32,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
     $stmt = $conn->prepare("INSERT INTO user (username, password, role_id) VALUES (?, ?, ?)");
-    $stmt->bind_param("ssi", $username, $password, $role_id);
+    $stmt->bind_param("ssi", $username, $password_hash, $role_id);
 
     if ($stmt->execute()) {
+        session_start();
+        session_regenerate_id(true);
+        $_SESSION['user_id'] = $stmt->insert_id;
+        $_SESSION['username'] = $username;
+        $_SESSION['role_id'] = $role_id;
+
         header("Location: ../../customer/browse.php");
         exit();
     } else {

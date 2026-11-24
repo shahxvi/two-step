@@ -37,7 +37,6 @@ $result = mysqli_query($conn, $sql);
                 <tr>
                     <th>User ID</th>
                     <th>Username</th>
-                    <th>Password</th>
                     <th>Role ID</th>
                 </tr>
             </thead>
@@ -47,13 +46,12 @@ $result = mysqli_query($conn, $sql);
                         <tr>
                             <td><?php echo htmlspecialchars($row['user_id']); ?></td>
                             <td><?php echo htmlspecialchars($row['username']); ?></td>
-                            <td><?php echo htmlspecialchars($row['password']); ?></td>
                             <td><?php echo htmlspecialchars($row['role_id']); ?></td>
                         </tr>
                     <?php endwhile; ?>
                 <?php else : ?>
                     <tr>
-                        <td colspan="4" style="text-align: center;">No staff members found.</td>
+                        <td colspan="3" style="text-align: center;">No staff members found.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>
