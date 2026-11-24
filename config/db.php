@@ -2,7 +2,7 @@
 // PHP MySQLi Object-Oriented Connection
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "482377";
 $dbname = "two_step";
 
 // Create connection
