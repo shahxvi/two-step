@@ -2,6 +2,9 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+if (!isset($_SESSION['cart_csrf_token'])) {
+    $_SESSION['cart_csrf_token'] = bin2hex(random_bytes(32));
+}
 require_once __DIR__ . '/../config/db.php';
 
 $shoe_id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
@@ -75,6 +78,7 @@ $stmt_var->close();
         <p><?= htmlspecialchars($shoe['description'] ?? '', ENT_QUOTES, 'UTF-8') ?></p>
         <?php if (!empty($variants)): ?>
             <form action="customer/cart/add_to_cart.php" method="POST">
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['cart_csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
                 <label for="sizeSelect"><b>Choose Size (UK):</b></label>
                 <select id="sizeSelect" required style="width: 100%; padding: 8px; margin: 10px 0;">
                     <option value="">-- Choose size --</option>

@@ -4,66 +4,115 @@ require_once __DIR__ . '/../../config/authorization.php';
 require_role(3);
 require_once __DIR__ . '/../../config/db.php';
 
-if (isset($_GET['action']) && isset($_GET['shoe_variant_id'])) {
-    $user_id = $_SESSION['user_id'];
-    $shoe_variant_id = $_GET['shoe_variant_id'];
-    $action  = $_GET['action'];
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    exit('Method not allowed.');
+}
 
-    if ($action === 'add') {
-        $check = $conn->prepare(
-            "SELECT c.cart_id, c.quantity, sv.quantity AS stock_quantity, sv.status_id
-             FROM cart AS c
-             JOIN shoe_variant AS sv ON sv.shoe_variant_id = c.shoe_variant_id
-             WHERE c.user_id = ? AND c.shoe_variant_id = ?"
-        );
-        $check->bind_param("ii", $user_id, $shoe_variant_id);
-        $check->execute();
-        $item = $check->get_result()->fetch_assoc();
-        $check->close();
+$submittedToken = $_POST['csrf_token'] ?? '';
+$expectedToken = $_SESSION['cart_csrf_token'] ?? '';
+if (
+    !is_string($submittedToken) ||
+    !is_string($expectedToken) ||
+    $expectedToken === '' ||
+    !hash_equals($expectedToken, $submittedToken)
+) {
+    http_response_code(403);
+    exit('Invalid form token.');
+}
+
+$userId = (int)$_SESSION['user_id'];
+$shoeVariantId = filter_var($_POST['shoe_variant_id'] ?? null, FILTER_VALIDATE_INT);
+$action = $_POST['action'] ?? '';
+
+if ($shoeVariantId === false || $shoeVariantId === null || $shoeVariantId < 1) {
+    http_response_code(400);
+    exit('A valid shoe variant is required.');
+}
+if (!is_string($action) || !in_array($action, ['add', 'minus', 'remove'], true)) {
+    http_response_code(400);
+    exit('Invalid cart action.');
+}
+
+$conn->begin_transaction();
+try {
+    $variant = $conn->prepare(
+        'SELECT shoe_id, quantity, status_id
+         FROM shoe_variant
+         WHERE shoe_variant_id = ?
+         FOR UPDATE'
+    );
+    $variant->bind_param('i', $shoeVariantId);
+    $variant->execute();
+    $variantData = $variant->get_result()->fetch_assoc();
+    $variant->close();
+
+    $check = $conn->prepare(
+        'SELECT cart_id, quantity FROM cart
+         WHERE user_id = ? AND shoe_variant_id = ?
+         ORDER BY cart_id
+         FOR UPDATE'
+    );
+    $check->bind_param('ii', $userId, $shoeVariantId);
+    $check->execute();
+    $cartRows = $check->get_result()->fetch_all(MYSQLI_ASSOC);
+    $check->close();
+
+    if ($action === 'remove') {
+        $delete = $conn->prepare('DELETE FROM cart WHERE user_id = ? AND shoe_variant_id = ?');
+        $delete->bind_param('ii', $userId, $shoeVariantId);
+        $delete->execute();
+        $delete->close();
+    } elseif (!$variantData || !$cartRows) {
+        $conn->rollback();
+        header('Location: /two-step/customer/cart/cart.php?error=stock_limit');
+        exit;
+    } else {
+        $cartQuantity = array_sum(array_map(
+            static fn(array $row): int => (int)$row['quantity'],
+            $cartRows
+        ));
 
         if (
-            !$item ||
-            (int)$item['status_id'] !== 1 ||
-            (int)$item['quantity'] >= (int)$item['stock_quantity']
+            $action === 'add' &&
+            ((int)$variantData['status_id'] !== 1 ||
+                $cartQuantity >= (int)$variantData['quantity'])
         ) {
-            header("Location: /two-step/customer/cart/cart.php?error=stock_limit");
+            $conn->rollback();
+            header('Location: /two-step/customer/cart/cart.php?error=stock_limit');
             exit;
         }
 
-        $stmt = $conn->prepare("UPDATE cart SET quantity = quantity + 1 WHERE cart_id = ?");
-        $stmt->bind_param("i", $item['cart_id']);
-        $stmt->execute();
-        $stmt->close();
+        $primaryCartId = (int)$cartRows[0]['cart_id'];
+        $newQuantity = $action === 'add' ? $cartQuantity + 1 : $cartQuantity - 1;
+        if ($newQuantity < 1) {
+            $delete = $conn->prepare('DELETE FROM cart WHERE user_id = ? AND shoe_variant_id = ?');
+            $delete->bind_param('ii', $userId, $shoeVariantId);
+            $delete->execute();
+            $delete->close();
+        } else {
+            $update = $conn->prepare(
+                'UPDATE cart SET shoe_id = ?, quantity = ? WHERE cart_id = ? AND user_id = ?'
+            );
+            $update->bind_param('iiii', $variantData['shoe_id'], $newQuantity, $primaryCartId, $userId);
+            $update->execute();
+            $update->close();
 
-    } elseif ($action === 'minus') {
-        $check = $conn->prepare("SELECT quantity FROM cart WHERE user_id = ? AND shoe_variant_id = ?");
-        $check->bind_param("ii", $user_id, $shoe_variant_id);
-        $check->execute();
-        $res = $check->get_result();
-        
-        if ($row = $res->fetch_assoc()) {
-            if ($row['quantity'] > 1) {
-                $update = $conn->prepare("UPDATE cart SET quantity = quantity - 1 WHERE user_id = ? AND shoe_variant_id = ?");
-                $update->bind_param("ii", $user_id, $shoe_variant_id);
-                $update->execute();
-                $update->close();
-            } else {
-                $delete = $conn->prepare("DELETE FROM cart WHERE user_id = ? AND shoe_variant_id = ?");
-                $delete->bind_param("ii", $user_id, $shoe_variant_id);
-                $delete->execute();
-                $delete->close();
-            }
+            $removeDuplicates = $conn->prepare(
+                'DELETE FROM cart WHERE user_id = ? AND shoe_variant_id = ? AND cart_id <> ?'
+            );
+            $removeDuplicates->bind_param('iii', $userId, $shoeVariantId, $primaryCartId);
+            $removeDuplicates->execute();
+            $removeDuplicates->close();
         }
-        $check->close();
-
-    } elseif ($action === 'remove') {
-        $stmt = $conn->prepare("DELETE FROM cart WHERE user_id = ? AND shoe_variant_id = ?");
-        $stmt->bind_param("ii", $user_id, $shoe_variant_id);
-        $stmt->execute();
-        $stmt->close();
     }
+
+    $conn->commit();
+} catch (mysqli_sql_exception $exception) {
+    $conn->rollback();
+    throw $exception;
 }
 
-header("Location: cart.php");
+header('Location: /two-step/customer/cart/cart.php');
 exit();
 ?>
