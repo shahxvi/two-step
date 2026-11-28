@@ -1,11 +1,8 @@
 <?php
 session_start();
+require_once __DIR__ . '/../config/authorization.php';
+require_role(2);
 require_once __DIR__ . '/../config/db.php';
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: /two-step/auth/login/login.html");
-    exit;
-}
 
 function e($text) {
     return htmlspecialchars((string)$text, ENT_QUOTES, 'UTF-8');
@@ -85,7 +82,7 @@ while ($result && $row = $result->fetch_assoc()) {
             <a href="staff/staff_dashboard.php"><strong>Dashboard</strong></a> |
             <a href="staff/staff_orders.php"><strong>Orders</strong></a> |
             <a href="staff/staff_inventory.php"><strong>Inventory</strong></a> |
-            <a href="auth/login/login.html"><strong>Log Out</strong></a>
+            <a href="auth/logout.php"><strong>Log Out</strong></a>
         </nav>
     </header>
 

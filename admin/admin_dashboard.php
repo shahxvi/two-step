@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../config/authorization.php';
+require_role(1);
 require_once __DIR__ . '/../config/db.php';
 
 $sql = "SELECT * FROM user WHERE role_id = 2";
@@ -26,7 +28,7 @@ $result = mysqli_query($conn, $sql);
             <a><strong>Staff</strong></a> |
             <a><strong>Customer</strong></a> |
             <a href="/phpmyadmin/" target="_blank" rel="noopener"><strong>phpMyAdmin</strong></a> |
-            <a href="auth/login/login.html"><strong>Log Out</strong></a>
+            <a href="auth/logout.php"><strong>Log Out</strong></a>
         </nav>
     </header>
 

@@ -1,68 +1,26 @@
 <?php
 session_start();
+require_once __DIR__ . '/../config/authorization.php';
+require_role(2);
 require_once __DIR__ . '/../config/db.php';
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: /two-step/auth/login/login.html");
-    exit;
+$shoe_sql = "SELECT
+                sv.shoe_variant_id,
+                b.brand_name,
+                s.shoe_name,
+                sz.size_uk,
+                c.color_name,
+                sv.quantity
+             FROM shoe_variant AS sv
+             JOIN shoe AS s ON sv.shoe_id = s.shoe_id
+             JOIN brand AS b ON s.brand_id = b.brand_id
+             JOIN size AS sz ON sv.size_id = sz.size_id
+             JOIN color AS c ON sv.color_id = c.color_id
+             ORDER BY b.brand_name ASC, s.shoe_name ASC, sz.size_uk ASC";
+$shoe_result = $conn->query($shoe_sql);
+if (!$shoe_result) {
+    die("Could not load inventory: " . htmlspecialchars($conn->error, ENT_QUOTES, 'UTF-8'));
 }
-
-function e($text) {
-    return htmlspecialchars((string)$text, ENT_QUOTES, 'UTF-8');
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $msg = '';
-
-    try {
-        if ($_POST['action'] === 'add_product') {
-            $conn->begin_transaction();
-
-            $stmt = $conn->prepare("INSERT INTO shoe (shoe_name, shoe_price) VALUES (?, ?)");
-            $stmt->bind_param("sd", $_POST['shoe_name'], $_POST['shoe_price']);
-            $stmt->execute();
-            $shoeId = $conn->insert_id;
-
-            $stmt = $conn->prepare("INSERT INTO shoe_variant (shoe_id) VALUES (?)");
-            $stmt->bind_param("i", $shoeId);
-            $stmt->execute();
-
-            $conn->commit();
-            $msg = "Product added.";
-        }
-
-        if ($_POST['action'] === 'remove_product') {
-            $shoeId = (int)$_POST['shoe_id'];
-            $conn->begin_transaction();
-
-            $stmt = $conn->prepare("DELETE FROM shoe_variant WHERE shoe_id = ?");
-            $stmt->bind_param("i", $shoeId);
-            $stmt->execute();
-
-            $stmt = $conn->prepare("DELETE FROM shoe WHERE shoe_id = ?");
-            $stmt->bind_param("i", $shoeId);
-            $stmt->execute();
-
-            $conn->commit();
-            $msg = "Product removed.";
-        }
-    } catch (mysqli_sql_exception $ex) {
-        $conn->rollback();
-        $msg = "Could not complete that. This product may already be in a customer order.";
-    }
-
-    header("Location: /two-step/staff/staff_inventory.php?msg=" . urlencode($msg));
-    exit;
-}
-
-$result = $conn->query("SELECT shoe_id, shoe_name, shoe_price FROM shoe ORDER BY shoe_id DESC");
-
-$products = [];
-while ($result && $row = $result->fetch_assoc()) {
-    $products[] = $row;
-}
-
-$msg = $_GET['msg'] ?? '';
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +33,6 @@ $msg = $_GET['msg'] ?? '';
     <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="stylesheet" href="staff/staff_inventory.css">
 </head>
-
 <body>
     <header>
         <div class="logo-container">
@@ -86,83 +43,49 @@ $msg = $_GET['msg'] ?? '';
             <a href="staff/staff_dashboard.php"><strong>Dashboard</strong></a> |
             <a href="staff/staff_orders.php"><strong>Orders</strong></a> |
             <a href="staff/staff_inventory.php"><strong>Inventory</strong></a> |
-            <a href="auth/login/login.html"><strong>Log Out</strong></a>
+            <a href="auth/logout.php"><strong>Log Out</strong></a>
         </nav>
     </header>
 
     <main>
-        <div class="panel orders-panel">
-            <h2><strong>Products:</strong></h2>
-
-            <?php if ($msg): ?>
-                <div class="notice"><?= e($msg) ?></div>
+        <div class="panel inventory-panel">
+            <h2>Inventory</h2>
+            <?php if (isset($_GET['updated']) && $_GET['updated'] === '1'): ?>
+                <div class="notice">Shoe details updated successfully.</div>
             <?php endif; ?>
-
-            <table class="orders-table">
+            <table class="inventory-table">
                 <thead>
                     <tr>
-                        <th>Shoe ID</th>
+                        <th>Shoe Brand</th>
                         <th>Shoe Name</th>
-                        <th>Price (RM)</th>
-                        <th></th>
+                        <th>Size (UK)</th>
+                        <th>Color</th>
+                        <th>Quantity</th>
+                        <th>Manage</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (count($products) > 0): ?>
-                        <?php foreach ($products as $row): ?>
+                    <?php if ($shoe_result->num_rows > 0): ?>
+                        <?php while ($row = $shoe_result->fetch_assoc()): ?>
                             <tr>
-                                <td>#SHOE<?= str_pad($row['shoe_id'], 3, "0", STR_PAD_LEFT) ?></td>
-                                <td><?= e($row['shoe_name']) ?></td>
-                                <td><?= number_format($row['shoe_price'], 0) ?></td>
-                                <td><button class="manage-btn" onclick="openPopup('manage-<?= (int)$row['shoe_id'] ?>')">Manage</button></td>
+                                <td><?= htmlspecialchars($row['brand_name'], ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= htmlspecialchars($row['shoe_name'], ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= htmlspecialchars($row['size_uk'], ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= htmlspecialchars($row['color_name'], ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= (int)$row['quantity'] ?></td>
+                                <td>
+                                    <a class="manage-btn" href="staff/staff_inventory_manage.php?shoe_variant_id=<?= (int)$row['shoe_variant_id'] ?>">Manage</a>
+                                </td>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php endwhile; ?>
                     <?php else: ?>
-                        <tr><td colspan="4" class="no-order">No products yet.</td></tr>
+                        <tr>
+                            <td colspan="6" class="no-inventory">No inventory records found.</td>
+                        </tr>
                     <?php endif; ?>
                 </tbody>
             </table>
-
-            <button class="open-add-btn" onclick="openPopup('add')">Add Product</button>
-        </div>
-
-        <?php foreach ($products as $row): ?>
-            <div id="popup-manage-<?= (int)$row['shoe_id'] ?>" class="popup-bg">
-                <div class="popup-box">
-                    <span class="close-btn" onclick="closePopup('manage-<?= (int)$row['shoe_id'] ?>')">&times;</span>
-                    <h2>Manage Product</h2>
-                    <p><strong><?= e($row['shoe_name']) ?></strong></p>
-                    <p>Price: RM<?= number_format($row['shoe_price'], 2) ?></p>
-
-                    <form action="staff/staff_inventory.php" method="POST"
-                          onsubmit="return confirm('Remove this product?');">
-                        <input type="hidden" name="action" value="remove_product">
-                        <input type="hidden" name="shoe_id" value="<?= (int)$row['shoe_id'] ?>">
-                        <button type="submit" class="remove-btn">Remove product</button>
-                    </form>
-                </div>
-            </div>
-        <?php endforeach; ?>
-
-        <!-- add product -->
-        <div id="popup-add" class="popup-bg">
-            <div class="popup-box">
-                <span class="close-btn" onclick="closePopup('add')">&times;</span>
-                <h2>Add Product</h2>
-
-                <form action="staff/staff_inventory.php" method="POST">
-                    <input type="hidden" name="action" value="add_product">
-                    <input type="text" name="shoe_name" placeholder="Shoe name" required>
-                    <input type="number" name="shoe_price" step="0.01" min="0" placeholder="Price (RM)" required>
-                    <button type="submit" class="add-btn">Add</button>
-                </form>
-            </div>
         </div>
     </main>
-
-    <script>
-        function openPopup(id)  { document.getElementById("popup-" + id).style.display = "flex"; }
-        function closePopup(id) { document.getElementById("popup-" + id).style.display = "none"; }
-    </script>
 </body>
 </html>

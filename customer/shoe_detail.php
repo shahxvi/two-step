@@ -49,7 +49,7 @@ $stmt_var->close();
         <nav>
             <a href="customer/browse.php"><strong>Browse</strong></a> |
             <a href="customer/cart/cart.php"><strong>Cart</strong></a> |
-            <a href="customer/account/logout.php"><strong>Logout</strong></a>
+            <a href="auth/logout.php"><strong>Logout</strong></a>
         </nav>
     </header>
 

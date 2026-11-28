@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/../config/authorization.php';
+require_role(2);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +22,7 @@
             <a href="staff/staff_dashboard.php"><strong>Dashboard</strong></a> |
             <a href="staff/staff_orders.php"><strong>Orders</strong></a> |
             <a href="staff/staff_inventory.php"><strong>Inventory</strong></a> |
-            <a href="auth/login/login.html"><strong>Log Out</strong></a>
+            <a href="auth/logout.php"><strong>Log Out</strong></a>
         </nav>
     </header>
 

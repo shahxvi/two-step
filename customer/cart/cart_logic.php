@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../config/authorization.php';
+require_role(3);
 require_once __DIR__ . '/../../config/db.php';
 
 if (session_status() === PHP_SESSION_NONE) {

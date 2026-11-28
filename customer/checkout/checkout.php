@@ -1,13 +1,7 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+require_once __DIR__ . '/../../config/authorization.php';
+require_role(3);
 require_once __DIR__ . '/../../config/db.php';
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
 
 $user_id = $_SESSION['user_id'];
 $total_price = 0;
