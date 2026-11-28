@@ -79,7 +79,7 @@ $stmt_var->close();
                 <select id="sizeSelect" required style="width: 100%; padding: 8px; margin: 10px 0;">
                     <option value="">-- Choose size --</option>
                     <?php foreach ($sizeOptions as $sizeId => $sizeUk): ?>
-                        <option value="<?= (int)$sizeId ?>">UK <?= htmlspecialchars($sizeUk, ENT_QUOTES, 'UTF-8') ?></option>
+                        <option value="<?= (int)$sizeId ?>"><?= htmlspecialchars($sizeUk, ENT_QUOTES, 'UTF-8') ?></option>
                     <?php endforeach; ?>
                 </select>
 
