@@ -1,0 +1,37 @@
+header {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+body {
+    background-color: #807166; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+    background-size: cover; 
+    background-attachment: fixed; 
+    min-height: 100vh; 
+    margin: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo-container {
+    background: white;
+    padding: 5px 12px;
+    border-radius: 4px;
+}
+
+.logo {
+    max-width: 100%;
+    height: 95px;
+    display: block;
+}
+

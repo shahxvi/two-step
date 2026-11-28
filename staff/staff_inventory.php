@@ -73,7 +73,6 @@ $msg = $_GET['msg'] ?? '';
     <title>2 Step Sneakers: Staff Inventory</title>
     <base href="/two-step/">
     <link rel="icon" type="image/png" href="images/logo.png">
-    <link rel="stylesheet" href="staff/staff_dashboard.css">
     <link rel="stylesheet" href="staff/staff_inventory.css">
 </head>
 
@@ -85,8 +84,8 @@ $msg = $_GET['msg'] ?? '';
 
         <nav>
             <a href="staff/staff_dashboard.php"><strong>Dashboard</strong></a> |
-            <a><strong>Orders</strong></a> |
-            <a><strong>Inventory</strong></a> |
+            <a href="staff/staff_orders.php"><strong>Orders</strong></a> |
+            <a href="staff/staff_inventory.php"><strong>Inventory</strong></a> |
             <a href="auth/login/login.html"><strong>Log Out</strong></a>
         </nav>
     </header>

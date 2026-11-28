@@ -82,7 +82,7 @@ while ($result && $row = $result->fetch_assoc()) {
         </div>
 
         <nav>
-            <a><strong>Dashboard</strong></a> |
+            <a href="staff/staff_dashboard.php"><strong>Dashboard</strong></a> |
             <a href="staff/staff_orders.php"><strong>Orders</strong></a> |
             <a href="staff/staff_inventory.php"><strong>Inventory</strong></a> |
             <a href="auth/login/login.html"><strong>Log Out</strong></a>
