@@ -11,6 +11,7 @@ require_role(2);
     <base href="/two-step/">
     <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="stylesheet" href="staff/staff_dashboard.css">
+    <link rel="stylesheet" href="site-nav.css">
 </head>
 <body>
     <header>

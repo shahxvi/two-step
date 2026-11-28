@@ -10,7 +10,7 @@ $display_data = [];
 $customer_order_id = null;
 
 // 1. Ambil data cart berdasarkan shoe_variant_id (mengelakkan isu shoe_id = 0)
-$sql = "SELECT cart.quantity, shoe.shoe_name AS name, shoe.shoe_price AS price, 
+$sql = "SELECT cart.quantity, shoe.shoe_name AS name, shoe_variant.shoe_price AS price,
                size.size_uk, color.color_name, cart.shoe_variant_id
         FROM cart 
         JOIN shoe_variant ON cart.shoe_variant_id = shoe_variant.shoe_variant_id
@@ -85,7 +85,7 @@ if (!$customer_order_id) {
 
 // 4. Tarik data resit daripada database order_details
 if ($customer_order_id) {
-    $sql_receipt = "SELECT od.quantity, s.shoe_name AS name, s.shoe_price AS price, 
+    $sql_receipt = "SELECT od.quantity, s.shoe_name AS name, sv.shoe_price AS price,
                            sz.size_uk, cl.color_name
                     FROM order_details od
                     JOIN shoe_variant sv ON od.shoe_variant_id = sv.shoe_variant_id
@@ -127,13 +127,19 @@ if ($customer_order_id) {
     <base href="/two-step/">
     <link rel="icon" type="image/png" href="images/logo.png"/>
     <link rel="stylesheet" href="customer/checkout/checkout.css">
+    <link rel="stylesheet" href="site-nav.css">
 </head>
 <body>
-    <div class="logo-container">
-        <div class="logo-box">
-            <img src="images/logo.png" alt="2 Step Sneakers" class="logo">
+    <header>
+        <div class="logo-container">
+            <a href="customer/browse.php"><img src="images/logo.png" alt="2 Step Sneakers" class="logo"></a>
         </div>
-    </div>
+        <nav>
+            <a href="customer/browse.php"><strong>Browse</strong></a> |
+            <a href="customer/cart/cart.php"><strong>Cart</strong></a> |
+            <a href="auth/logout.php"><strong>Logout</strong></a>
+        </nav>
+    </header>
     <main>
         <div class="receipt-container">
             <div class="receipt-head">

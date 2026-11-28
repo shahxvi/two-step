@@ -3,6 +3,7 @@ session_start();
 require_once __DIR__ . '/../config/authorization.php';
 require_role(2);
 require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../config/shoe_image_upload.php';
 
 function e($text) {
     return htmlspecialchars((string)$text, ENT_QUOTES, 'UTF-8');
@@ -36,64 +37,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if (isset($_FILES['image']) && $_FILES['image']['error'] !== UPLOAD_ERR_NO_FILE) {
-            if ($_FILES['image']['error'] !== UPLOAD_ERR_OK || !is_uploaded_file($_FILES['image']['tmp_name'])) {
-                throw new RuntimeException('Please select a valid image.');
-            }
-
-            if ($_FILES['image']['size'] > 5 * 1024 * 1024) {
-                throw new RuntimeException('The image must be 5 MB or smaller.');
-            }
-
-            $imageInfo = getimagesize($_FILES['image']['tmp_name']);
-            $extensions = [
-                'image/jpeg' => 'jpg',
-                'image/png' => 'png',
-                'image/gif' => 'gif',
-                'image/webp' => 'webp',
-            ];
-
-            if ($imageInfo === false || !isset($extensions[$imageInfo['mime']])) {
-                throw new RuntimeException('Only JPG, PNG, GIF, and WebP images are allowed.');
-            }
-
-            $filename = 'shoe_' . bin2hex(random_bytes(8)) . '.' . $extensions[$imageInfo['mime']];
-            $targetPath = __DIR__ . '/../images/' . $filename;
-
-            if (!move_uploaded_file($_FILES['image']['tmp_name'], $targetPath)) {
-                throw new RuntimeException('Could not save the uploaded image.');
-            }
-            $imagePath = 'images/' . $filename;
-            $savedImagePath = $targetPath;
+            $imagePath = upload_shoe_image($_FILES['image']);
+            $savedImagePath = __DIR__ . '/../' . $imagePath;
         }
 
         if ($imagePath === null) {
             $shoeStmt = $conn->prepare(
                 "UPDATE shoe
-                 SET brand_id = ?, category_id = ?, shoe_name = ?, gender_target_id = ?, shoe_price = ?
+                SET brand_id = ?, category_id = ?, shoe_name = ?, gender_target_id = ?
                  WHERE shoe_id = ?"
             );
             $shoeStmt->bind_param(
-                "iisidi",
+                "iisii",
                 $_POST['brand_id'],
                 $_POST['category_id'],
                 $_POST['shoe_name'],
                 $_POST['gender_target_id'],
-                $_POST['shoe_price'],
                 $_POST['shoe_id']
             );
         } else {
             $shoeStmt = $conn->prepare(
                 "UPDATE shoe
-                 SET brand_id = ?, category_id = ?, shoe_name = ?, gender_target_id = ?, shoe_price = ?, image_path = ?
+                SET brand_id = ?, category_id = ?, shoe_name = ?, gender_target_id = ?, image_path = ?
                  WHERE shoe_id = ?"
             );
             $shoeStmt->bind_param(
-                "iisidsi",
+                "iisisi",
                 $_POST['brand_id'],
                 $_POST['category_id'],
                 $_POST['shoe_name'],
                 $_POST['gender_target_id'],
-                $_POST['shoe_price'],
                 $imagePath,
                 $_POST['shoe_id']
             );
@@ -102,11 +75,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $variantStmt = $conn->prepare(
             "UPDATE shoe_variant
-             SET size_id = ?, color_id = ?, quantity = ?, status_id = ?
+             SET shoe_price = ?, size_id = ?, color_id = ?, quantity = ?, status_id = ?
              WHERE shoe_variant_id = ?"
         );
         $variantStmt->bind_param(
-            "iiiii",
+            "diiiii",
+            $_POST['shoe_price'],
             $_POST['size_id'],
             $_POST['color_id'],
             $_POST['quantity'],
@@ -157,11 +131,11 @@ $sql = "SELECT
             sv.color_id,
             sv.quantity,
             sv.status_id,
+            sv.shoe_price,
             s.brand_id,
             s.category_id,
             s.shoe_name,
             s.gender_target_id,
-            s.shoe_price,
             s.image_path
         FROM shoe_variant AS sv
         JOIN shoe AS s ON s.shoe_id = sv.shoe_id
@@ -210,6 +184,7 @@ $statuses = options($conn, 'status', 'status_id', 'status');
     <base href="/two-step/">
     <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="stylesheet" href="staff/staff_inventory.css">
+    <link rel="stylesheet" href="site-nav.css">
 </head>
 <body>
     <header>
@@ -247,6 +222,9 @@ $statuses = options($conn, 'status', 'status_id', 'status');
                 <label for="shoe_name">Shoe Name</label>
                 <input id="shoe_name" type="text" name="shoe_name" value="<?= e($shoe['shoe_name']) ?>" required>
 
+                <label for="shoe_price">Variant Price (RM)</label>
+                <input id="shoe_price" type="number" name="shoe_price" value="<?= e($shoe['shoe_price']) ?>" step="0.01" min="0" required>
+
                 <label for="category_id">Category</label>
                 <select id="category_id" name="category_id" required>
                     <?php foreach ($categories as $category): ?>
@@ -264,9 +242,6 @@ $statuses = options($conn, 'status', 'status_id', 'status');
                         </option>
                     <?php endforeach; ?>
                 </select>
-
-                <label for="shoe_price">Price (RM)</label>
-                <input id="shoe_price" type="number" name="shoe_price" value="<?= e($shoe['shoe_price']) ?>" step="0.01" min="0" required>
 
                 <label for="size_id">Size (UK)</label>
                 <select id="size_id" name="size_id" required>

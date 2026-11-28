@@ -16,6 +16,7 @@ $result = mysqli_query($conn, $sql);
     <base href="/two-step/">
     <link rel="icon" type="image/jpg" href="images/logo.png">
     <link rel="stylesheet" href="admin/admin_dashboard.css">
+    <link rel="stylesheet" href="site-nav.css">
 </head>
 <body>
     <header>

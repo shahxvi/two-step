@@ -49,6 +49,32 @@ main {
     margin: 0 0 18px;
 }
 
+.inventory-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.inventory-heading h2 {
+    margin: 0;
+}
+
+.add-btn {
+    display: inline-block;
+    background: #807166;
+    color: white;
+    border-radius: 5px;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.add-btn:hover,
+.add-btn:focus-visible {
+    background: #574d43;
+}
+
 .inventory-table {
     width: 100%;
     border-collapse: collapse;
@@ -104,6 +130,18 @@ main {
     padding: 9px;
 }
 
+.new-option-fields {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 12px 15px;
+    align-items: center;
+}
+
+.new-option-fields[hidden] {
+    display: none;
+}
+
 .current-shoe-image {
     grid-column: 2;
     width: 180px;
@@ -146,7 +184,15 @@ main {
 }
 
 @media (max-width: 600px) {
+    .inventory-heading {
+        align-items: flex-start;
+    }
+
     .manage-form {
+        grid-template-columns: 1fr;
+    }
+
+    .new-option-fields {
         grid-template-columns: 1fr;
     }
 

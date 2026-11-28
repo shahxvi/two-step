@@ -11,6 +11,7 @@ include 'cart_logic.php';
     <base href="/two-step/">
     <link rel="icon" type="image/jpg" href="images/logo.png"/>
     <link rel="stylesheet" href="customer/cart/cart.css">
+    <link rel="stylesheet" href="site-nav.css">
 </head>
 <body>
     <header>
@@ -27,6 +28,9 @@ include 'cart_logic.php';
     <main>
         <div class="cart-container">
             <h1 class="cart-title"><strong>Shopping Cart</strong></h1>
+            <?php if (($_GET['error'] ?? '') === 'stock_limit'): ?>
+                <p role="alert" style="color: #b91c1c; text-align: center;">You cannot add more than the available stock.</p>
+            <?php endif; ?>
             <div class="cart-items">
                 <?php if (!empty($cart_data)): ?>
                     <?php foreach ($cart_data as $item): ?>

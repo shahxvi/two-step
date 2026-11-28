@@ -88,7 +88,6 @@ CREATE TABLE `shoe` (
   `shoe_name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL DEFAULT '',
   `gender_target_id` bigint(20) NOT NULL,
-  `shoe_price` decimal(10,2) NOT NULL DEFAULT 0.00,
   `image_path` varchar(255) NOT NULL DEFAULT 'images/logo.png',
   PRIMARY KEY (`shoe_id`),
   KEY `shoe_category_id_foreign` (`category_id`),
@@ -102,10 +101,13 @@ CREATE TABLE `shoe` (
 CREATE TABLE `shoe_variant` (
   `shoe_variant_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `shoe_id` bigint(20) NOT NULL,
+  `shoe_price` decimal(10,2) NOT NULL DEFAULT 0.00,
   `size_id` bigint(20) NOT NULL,
   `color_id` bigint(20) NOT NULL,
+  `quantity` int(11) NOT NULL DEFAULT 0,
   `status_id` bigint(20) NOT NULL,
   PRIMARY KEY (`shoe_variant_id`),
+  UNIQUE KEY `shoe_variant_shoe_size_color_unique` (`shoe_id`, `size_id`, `color_id`),
   KEY `shoe_variant_shoe_id_foreign` (`shoe_id`),
   KEY `shoe_variant_size_id_foreign` (`size_id`),
   KEY `shoe_variant_color_id_foreign` (`color_id`),
@@ -169,7 +171,8 @@ CREATE TABLE `order_details` (
 INSERT INTO `brand` (`brand_id`, `brand_name`, `brand_country`) VALUES
 (1, 'Puma', 0),
 (2, 'Nike', 0),
-(3, 'Adidas', 0);
+(3, 'Adidas', 0),
+(4, 'New Balance', 0);
 
 INSERT INTO `category` (`category_id`, `category_name`, `category_description`) VALUES
 (1, 'Sport Shoes', 'Sporty and suitable for either running nor jogging '),
@@ -183,7 +186,8 @@ INSERT INTO `color` (`color_id`, `color_name`) VALUES
 (3, 'Pink'),
 (4, 'Black'),
 (5, 'White'),
-(6, 'Red');
+(6, 'Red'),
+(7, 'Neon Yellow');
 
 INSERT INTO `gender_target` (`gender_target_id`, `gender`) VALUES
 (1, 'Women'),
@@ -212,23 +216,61 @@ INSERT INTO `user` (`user_id`, `username`, `password`, `fullname`, `nric`, `join
 (8, 'shahxvi', '482377', NULL, NULL, NULL, NULL, 1),
 (9, 'MarCelo', '123456', NULL, NULL, NULL, NULL, 3);
 
-INSERT INTO `shoe` (`shoe_id`, `brand_id`, `category_id`, `shoe_name`, `description`, `gender_target_id`, `shoe_price`, `image_path`) VALUES
-(1, 2, 2, 'Silver Plate', 'Silver black runner', 3, 650.00, 'images/silver_plate.png'),
-(2, 2, 1, 'Cream Cookie', 'Daily walk classic', 3, 500.00, 'images/dream_cookie.png'),
-(3, 3, 2, 'Red Velvet', 'Maroon retro', 3, 480.00, 'images/red_velvet.png'),
-(4, 1, 2, 'White Cat', 'Off White Speedshoe', 1, 480.00, 'images/white_cat.png'),
-(5, 3, 2, 'Sea Walkers', 'Navy sea color', 1, 490.00, 'images/sea_walkers.png'),
-(6, 1, 1, 'Pink Barbie', 'Bright runners', 1, 700.00, 'images/pink_barbie.png'),
-(7, 1, 3, 'BlackPink Ballerina', 'Easy Walking Shoes', 1, 450.00, 'images/blackpink_ballerina.png'),
-(8, 2, 4, 'Star White', 'High tall stars', 1, 550.00, 'images/star_white.png'),
-(9, 1, 3, 'Dots Creamy', 'Pokadot Ballerina', 1, 700.00, 'images/dots_creamy.png'),
-(10, 1, 3, 'Retro', 'Blue light grey', 2, 350.00, 'images/retro.png');
+INSERT INTO `shoe` (`shoe_id`, `brand_id`, `category_id`, `shoe_name`, `description`, `gender_target_id`, `image_path`) VALUES
+(1, 4, 2, '530', 'New Balance 530', 3, 'images/silver_plate.png'),
+(2, 2, 1, 'Cream Cookie', 'Daily walk classic', 3, 'images/dream_cookie.png'),
+(3, 3, 2, 'Gazelle', 'Adidas Gazelle', 3, 'images/red_velvet.png'),
+(4, 1, 2, 'Speedcat OG - Pink', 'Puma Speedcat OG', 1, 'images/white_cat.png'),
+(6, 1, 1, 'Speedcat OG - Hot Pink', 'Puma Speedcat OG', 1, 'images/pink_barbie.png'),
+(7, 1, 3, 'Speedcat Ballet', 'Puma Speedcat Ballet', 1, 'images/blackpink_ballerina.png'),
+(8, 2, 4, 'Star White', 'High tall stars', 1, 'images/star_white.png'),
+(9, 1, 3, 'Dots Creamy', 'Pokadot Ballerina', 1, 'images/dots_creamy.png');
 
-INSERT INTO `shoe_variant` (`shoe_variant_id`, `shoe_id`, `size_id`, `color_id`, `status_id`) VALUES
-(1, 2, 3, 1, 1),
-(2, 1, 4, 2, 1),
-(3, 6, 2, 3, 2),
-(4, 3, 1, 6, 3);
+INSERT INTO `shoe_variant` (`shoe_id`, `shoe_price`, `size_id`, `color_id`, `quantity`, `status_id`)
+SELECT
+    s.shoe_id,
+    CASE s.shoe_id
+        WHEN 1 THEN 519.00
+        WHEN 2 THEN 500.00
+        WHEN 3 THEN 569.00
+        WHEN 4 THEN 549.00
+        WHEN 6 THEN 549.00
+        WHEN 7 THEN 379.00
+        WHEN 8 THEN 550.00
+        WHEN 9 THEN 700.00
+    END + ((sz.size_uk - 4) * 5.00),
+    sz.size_id,
+    c.color_id,
+    CASE
+        WHEN (s.shoe_id = 1 AND sz.size_uk = 6 AND c.color_id = 5)
+          OR (s.shoe_id = 2 AND sz.size_uk = 4 AND c.color_id = 4)
+          OR (s.shoe_id = 3 AND sz.size_uk = 5 AND c.color_id = 7)
+          OR (s.shoe_id = 4 AND sz.size_uk = 6 AND c.color_id = 7)
+          OR (s.shoe_id = 6 AND sz.size_uk = 7 AND c.color_id = 7)
+          OR (s.shoe_id = 7 AND sz.size_uk = 7 AND c.color_id = 5)
+          OR (s.shoe_id = 8 AND sz.size_uk = 4 AND c.color_id = 7)
+          OR (s.shoe_id = 8 AND sz.size_uk = 6 AND c.color_id = 1)
+          OR (s.shoe_id = 9 AND sz.size_uk = 5 AND c.color_id = 7)
+          OR (s.shoe_id = 9 AND sz.size_uk = 6 AND c.color_id = 4) THEN 0
+        ELSE 1
+    END,
+    CASE
+        WHEN (s.shoe_id = 1 AND sz.size_uk = 6 AND c.color_id = 5)
+          OR (s.shoe_id = 2 AND sz.size_uk = 4 AND c.color_id = 4)
+          OR (s.shoe_id = 3 AND sz.size_uk = 5 AND c.color_id = 7)
+          OR (s.shoe_id = 4 AND sz.size_uk = 6 AND c.color_id = 7)
+          OR (s.shoe_id = 6 AND sz.size_uk = 7 AND c.color_id = 7)
+          OR (s.shoe_id = 7 AND sz.size_uk = 7 AND c.color_id = 5)
+          OR (s.shoe_id = 8 AND sz.size_uk = 4 AND c.color_id = 7)
+          OR (s.shoe_id = 8 AND sz.size_uk = 6 AND c.color_id = 1)
+          OR (s.shoe_id = 9 AND sz.size_uk = 5 AND c.color_id = 7)
+          OR (s.shoe_id = 9 AND sz.size_uk = 6 AND c.color_id = 4) THEN 2
+        ELSE 1
+    END
+FROM shoe AS s
+CROSS JOIN size AS sz
+CROSS JOIN color AS c
+ORDER BY s.shoe_id, sz.size_uk, c.color_id;
 
 INSERT INTO `customer_order` (`customer_order_id`, `user_id`, `status_id`, `order_date_time`) VALUES
 (5, 3, 1, '2026-11-19 11:41:18');
@@ -237,17 +279,17 @@ INSERT INTO `customer_order` (`customer_order_id`, `user_id`, `status_id`, `orde
 -- 4. SET AUTO_INCREMENT VALUES
 -- --------------------------------------------------------
 
-ALTER TABLE `brand` AUTO_INCREMENT = 4;
+ALTER TABLE `brand` AUTO_INCREMENT = 5;
 ALTER TABLE `cart` AUTO_INCREMENT = 23;
 ALTER TABLE `cart_items` AUTO_INCREMENT = 2;
 ALTER TABLE `category` AUTO_INCREMENT = 5;
-ALTER TABLE `color` AUTO_INCREMENT = 7;
+ALTER TABLE `color` AUTO_INCREMENT = 8;
 ALTER TABLE `customer_order` AUTO_INCREMENT = 6;
 ALTER TABLE `gender_target` AUTO_INCREMENT = 4;
 ALTER TABLE `order_details` AUTO_INCREMENT = 7;
 ALTER TABLE `role` AUTO_INCREMENT = 4;
 ALTER TABLE `shoe` AUTO_INCREMENT = 11;
-ALTER TABLE `shoe_variant` AUTO_INCREMENT = 5;
+ALTER TABLE `shoe_variant` AUTO_INCREMENT = 225;
 ALTER TABLE `size` AUTO_INCREMENT = 5;
 ALTER TABLE `status` AUTO_INCREMENT = 4;
 ALTER TABLE `user` AUTO_INCREMENT = 10;

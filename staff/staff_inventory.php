@@ -8,6 +8,7 @@ $shoe_sql = "SELECT
                 sv.shoe_variant_id,
                 b.brand_name,
                 s.shoe_name,
+                sv.shoe_price,
                 sz.size_uk,
                 c.color_name,
                 sv.quantity
@@ -32,6 +33,7 @@ if (!$shoe_result) {
     <base href="/two-step/">
     <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="stylesheet" href="staff/staff_inventory.css">
+    <link rel="stylesheet" href="site-nav.css">
 </head>
 <body>
     <header>
@@ -49,15 +51,22 @@ if (!$shoe_result) {
 
     <main>
         <div class="panel inventory-panel">
-            <h2>Inventory</h2>
             <?php if (isset($_GET['updated']) && $_GET['updated'] === '1'): ?>
                 <div class="notice">Shoe details updated successfully.</div>
             <?php endif; ?>
+            <?php if (isset($_GET['added']) && $_GET['added'] === '1'): ?>
+                <div class="notice">Shoe added successfully.</div>
+            <?php endif; ?>
+            <div class="inventory-heading">
+                <h2>Inventory</h2>
+                <a class="add-btn" href="staff/staff_inventory_add.php" aria-label="Add a new shoe">Add</a>
+            </div>
             <table class="inventory-table">
                 <thead>
                     <tr>
                         <th>Shoe Brand</th>
                         <th>Shoe Name</th>
+                        <th>Price (RM)</th>
                         <th>Size (UK)</th>
                         <th>Color</th>
                         <th>Quantity</th>
@@ -70,6 +79,7 @@ if (!$shoe_result) {
                             <tr>
                                 <td><?= htmlspecialchars($row['brand_name'], ENT_QUOTES, 'UTF-8') ?></td>
                                 <td><?= htmlspecialchars($row['shoe_name'], ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= number_format((float)$row['shoe_price'], 2) ?></td>
                                 <td><?= htmlspecialchars($row['size_uk'], ENT_QUOTES, 'UTF-8') ?></td>
                                 <td><?= htmlspecialchars($row['color_name'], ENT_QUOTES, 'UTF-8') ?></td>
                                 <td><?= (int)$row['quantity'] ?></td>
@@ -80,7 +90,7 @@ if (!$shoe_result) {
                         <?php endwhile; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="6" class="no-inventory">No inventory records found.</td>
+                            <td colspan="7" class="no-inventory">No inventory records found.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>

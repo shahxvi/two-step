@@ -41,7 +41,7 @@ $sql = "SELECT
             co.customer_order_id,
             COALESCE(u.fullname, u.username) AS customer_name,
             COALESCE(GROUP_CONCAT(DISTINCT s.shoe_name SEPARATOR ', '), '-') AS items_ordered,
-            COALESCE(SUM(s.shoe_price * od.quantity), 0) AS total_price,
+            COALESCE(SUM(sv.shoe_price * od.quantity), 0) AS total_price,
             COALESCE(SUM(od.quantity), 0) AS total_quantity,
             co.order_date_time
         FROM customer_order co
@@ -70,6 +70,7 @@ while ($result && $row = $result->fetch_assoc()) {
     <base href="/two-step/">
     <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="stylesheet" href="staff/staff_orders.css">
+    <link rel="stylesheet" href="site-nav.css">
 </head>
 
 <body>
@@ -127,7 +128,7 @@ while ($result && $row = $result->fetch_assoc()) {
             <?php
             $oid = (int)$row['customer_order_id'];
 
-            $stmt = $conn->prepare("SELECT od.shoe_variant_id, s.shoe_name, s.shoe_price, od.quantity
+            $stmt = $conn->prepare("SELECT od.shoe_variant_id, s.shoe_name, sv.shoe_price, od.quantity
                                     FROM order_details od
                                     JOIN shoe_variant sv ON od.shoe_variant_id = sv.shoe_variant_id
                                     JOIN shoe s ON sv.shoe_id = s.shoe_id
