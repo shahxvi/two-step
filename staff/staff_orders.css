@@ -56,12 +56,18 @@ th {
     background: #eae7e2;
     padding: 20px;
     min-height: 420px;
+    border-radius: 8px;
 }
 
 .panel h2 {
     font-weight: 400;
     font-size: 28px;
     margin-bottom: 18px;
+}
+
+.orders-panel {
+    background: #eae7e2;
+    border-radius: 8px;
 }
 
 .row {
@@ -80,13 +86,13 @@ th {
 .orders-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 15px;
+    background: white;
     font-size: 16px;
 }
 
 .orders-table th {
-    background-color: #7f7366;
-    color: #ffffff;
+    background-color: #807166;
+    color: white;
     padding: 12px 10px;
     text-align: left;
 }
@@ -94,15 +100,19 @@ th {
 .orders-table td {
     padding: 12px 10px;
     border-bottom: 1px solid #c9c5bd;
-    color: #000000;
+    color: #000;
 }
 
 .orders-table tbody tr:nth-child(even) {
     background-color: #f4f3ef;
 }
 
-.orders-table tbody tr:nth-child(odd) {
-    background-color: #ffffff;
+.orders-panel > .orders-table {
+    margin-top: 0;
+}
+
+.popup-box .orders-table {
+    margin-top: 15px;
 }
 
 .orders-table .no-order {
@@ -110,8 +120,13 @@ th {
     padding: 20px;
 }
 
-.manage-btn { background: #7d7266; color: white; border: none; padding: 6px 14px;
-    border-radius: 5px; cursor: pointer; 
+.manage-btn {
+    background: #807166;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 14px;
+    cursor: pointer;
 }
 
 .popup-bg { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;

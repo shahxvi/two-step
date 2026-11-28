@@ -91,7 +91,7 @@ while ($result && $row = $result->fetch_assoc()) {
         <h1>Hello <?= e($staffName) ?>!</h1>
 
         <div class="panel orders-panel">
-            <h2><strong>Orders:</strong></h2>
+            <h2>Orders</h2>
             <table class="orders-table">
                 <thead>
                     <tr>

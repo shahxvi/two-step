@@ -37,6 +37,145 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.account-management {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.account-management h1 {
+    color: #eae7e2;
+}
+
+.account-management h2 {
+    margin: 0 0 18px;
+    color: #807166;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.account-notice {
+    margin: 20px;
+    padding: 12px 16px;
+    border-radius: 6px;
+    background: white;
+}
+
+.account-form {
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 12px 15px;
+    align-items: center;
+}
+
+.account-form label {
+    font-weight: 600;
+}
+
+.account-form input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 9px;
+}
+
+.account-form-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.account-table-wrap {
+    overflow-x: auto;
+}
+
+.account-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.account-table th {
+    padding: 12px 10px;
+    background: #807166;
+    color: white;
+    text-align: left;
+}
+
+.account-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #c9c5bd;
+}
+
+.account-table tbody tr:nth-child(even) {
+    background: #f4f3ef;
+}
+
+.account-status-control {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 18px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #c9c5bd;
+}
+
+.account-status-control p,
+.account-status-control form {
+    margin: 0;
+}
+
+.empty-accounts {
+    text-align: center;
+}
+
+.account-table .manage-btn {
+    display: inline-block;
+    border: 0;
+    border-radius: 5px;
+    padding: 8px 14px;
+    background: #807166;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.account-table .manage-btn:hover,
+.account-table .manage-btn:focus-visible {
+    background: #574d43;
+}
+
+.account-btn {
+    display: inline-block;
+    border: 0;
+    border-radius: 5px;
+    padding: 8px 12px;
+    background: #807166;
+    color: white;
+    font: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.account-btn:hover {
+    filter: brightness(0.9);
+}
+
+.account-btn.secondary {
+    background: #d8d5cf;
+    color: #333;
+}
+
+.account-btn.danger {
+    background: #c0392b;
+}
+
+.account-btn:focus-visible {
+    outline: 2px solid #333;
+    outline-offset: 2px;
+}
+
 /* Table Styling */
 .staff-table {
     width: 100%;
@@ -72,4 +211,15 @@ body {
 .staff-table tbody tr td:last-child {
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
+}
+
+@media (max-width: 600px) {
+    .account-form {
+        grid-template-columns: 1fr;
+    }
+
+    .account-form-actions {
+        grid-column: 1;
+    }
+
 }

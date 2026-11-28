@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
 
-    $stmt = $conn->prepare("SELECT user_id, password, role_id FROM user WHERE username = ?");
+    $stmt = $conn->prepare("SELECT user_id, password, role_id, leave_date FROM user WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -25,6 +25,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $upgrade = $conn->prepare("UPDATE user SET password = ? WHERE user_id = ?");
             $upgrade->bind_param("si", $password_hash, $user['user_id']);
             $upgrade->execute();
+        }
+
+        if ($password_valid && $user['leave_date'] !== null) {
+            echo "<script>
+                    alert('This account is deactivated. Please contact an administrator.');
+                    window.location.href = 'login.html';
+                  </script>";
+            exit();
         }
 
         // Rehash when PHP's default algorithm or cost has changed.
